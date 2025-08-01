@@ -16,7 +16,8 @@ static const Color greyTextColor = Color(0xffA5A5AB);
 
   static const Color borderColor = Color(0xffE9EAEC);
   static const Color dividerColor = Color(0xffE9EAEC);
-
+ static const Color skyBluColor = Color(0xff3866D8);
+ static const Color rustedGreen = Color(0xff04971F);
 
   // ColorScheme for light theme
   static ColorScheme lightColorScheme = ColorScheme.light(
