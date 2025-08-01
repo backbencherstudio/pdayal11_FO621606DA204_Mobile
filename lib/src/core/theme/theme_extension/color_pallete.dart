@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColor {
-  static const Color screenBackgroundColor = Color(0xffF6F8FA);
+  static const Color screenBackgroundColor = Color(0xffFAFAFA);
   static const Color primaryColor = Color(0xFF328B7F);
   static const Color secondaryColor = Color(0xFF1E78F0);
   static const Color error = Color(0xFFEB3D4D);
@@ -14,10 +14,19 @@ class AppColor {
   static const Color textColor = Color(0xff1D1F2C);
 static const Color greyTextColor = Color(0xffA5A5AB);
 
-  static const Color borderColor = Color(0xffE9EAEC);
+  static const Color borderColor = Color(0xffD2D2D5);
   static const Color dividerColor = Color(0xffE9EAEC);
  static const Color skyBluColor = Color(0xff3866D8);
  static const Color rustedGreen = Color(0xff04971F);
+
+ // container colors
+ static const Color containerBg1 = Color(0xff0887CE);
+ static const Color containerBg2 = Color(0xff00CBAB);
+
+ //Home Screen
+  static const Color blackText = Color(0xff070707);
+  static const Color homeBg = Color(0xffFAFAFA);
+
 
   // ColorScheme for light theme
   static ColorScheme lightColorScheme = ColorScheme.light(

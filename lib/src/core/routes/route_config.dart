@@ -1,14 +1,14 @@
 
 import 'package:go_router/go_router.dart';
 import 'package:pdayal1_mobile/src/core/routes/route_constant.dart';
+import 'package:pdayal1_mobile/src/feature/screens/home_screen/presentation/home_screen.dart';
 
-import '../../feature/screens/home_screen/presentation/home_screen.dart';
-import '../../feature/screens/splash/splash_screen.dart';
+import '../../feature/screens/registration_screen/presentation/registration_screen.dart';
 import 'build_page_with_transition.dart';
 
 class RouteConfig {
   GoRouter goRouter = GoRouter(
-    initialLocation: RouteConst.homeScreen,
+    initialLocation: RouteConst.registrationScreen,
 
     /// Start at the splash screen
     routes: [
@@ -52,25 +52,25 @@ class RouteConfig {
       // ),
 
       GoRoute(
-        path: RouteConst.splashScreen,
-        pageBuilder: (context, state) {
-          return buildPageWithTransition(
-            context: context,
-            state: state,
-            transitionType: PageTransitionType.slideRightToLeft,
-            child: SplashScreen(),
-          );
-        },
-      ),
-
-      GoRoute(
         path: RouteConst.homeScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
             context: context,
             state: state,
-            transitionType: PageTransitionType.slideBottomToTop,
+            transitionType: PageTransitionType.slideRightToLeft,
             child: HomeScreen(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RouteConst.registrationScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideBottomToTop,
+            child: RegistrationScreen(),
           );
         },
       ),

@@ -1,6 +1,7 @@
 class RouteConst{
 
   static const String splashScreen = '/splash';
+  static const String registrationScreen = '/RegistrationScreen';
   static const String homeScreen = '/HomeScreen';
   static const String jobScreen = '/job';
   static const String mapScreen = '/map';
