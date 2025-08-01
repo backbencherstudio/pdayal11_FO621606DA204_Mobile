@@ -3,12 +3,13 @@ import 'package:go_router/go_router.dart';
 import 'package:pdayal1_mobile/src/core/routes/route_constant.dart';
 import 'package:pdayal1_mobile/src/feature/common_widgets/bottom_nav_bar/bottom_nav_bar.dart';
 
+import '../../feature/screens/home_screen/presentation/home_screen.dart';
 import '../../feature/screens/splash/splash_screen.dart';
 import 'build_page_with_transition.dart';
 
 class RouteConfig {
   GoRouter goRouter = GoRouter(
-    initialLocation: RouteConst.splashScreen,
+    initialLocation: RouteConst.homeScreen,
 
     /// Start at the splash screen
     routes: [
@@ -63,17 +64,17 @@ class RouteConfig {
         },
       ),
 
-  //     GoRoute(
-  //       path: RouteConst.signInScreen,
-  //       pageBuilder: (context, state) {
-  //         return buildPageWithTransition(
-  //           context: context,
-  //           state: state,
-  //           transitionType: PageTransitionType.slideBottomToTop,
-  //           child: SignInScreen(),
-  //         );
-  //       },
-  //     ),
+      GoRoute(
+        path: RouteConst.homeScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideBottomToTop,
+            child: HomeScreen(),
+          );
+        },
+      ),
 
   //     GoRoute(
   //       path: RouteConst.forgetPasswordScreen,
