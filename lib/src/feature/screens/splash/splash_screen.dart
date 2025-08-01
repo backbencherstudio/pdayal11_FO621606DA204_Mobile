@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../../core/constant/icons.dart';
-import '../../../core/routes/route_constant.dart';
+import 'package:pdayal1_mobile/src/core/constant/icons.dart';
+import 'package:pdayal1_mobile/src/core/routes/route_constant.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

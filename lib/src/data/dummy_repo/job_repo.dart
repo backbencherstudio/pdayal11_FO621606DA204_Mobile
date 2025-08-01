@@ -1,4 +1,10 @@
 import 'dart:convert';
+<<<<<<< HEAD
+=======
+
+import 'package:pdayal1_mobile/src/data/models/job_model.dart';
+
+>>>>>>> 0222bc3c00ec2a7ae226b8672897da9e2cf483f8
 import '../dummy_data/job_data.dart';
 import '../models/job_model.dart';
 

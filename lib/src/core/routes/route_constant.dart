@@ -18,5 +18,5 @@ class RouteConst{
   static const String inspectionReport = '/inspection-report';
   static const String changePasswordScreen = '/change-password';
   static const String helpScreen = '/help';
-
+static const String dummy = "/Dummy";
 }

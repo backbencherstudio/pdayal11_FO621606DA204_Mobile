@@ -1,7 +1,6 @@
 
 import 'package:go_router/go_router.dart';
 import 'package:pdayal1_mobile/src/core/routes/route_constant.dart';
-import 'package:pdayal1_mobile/src/feature/common_widgets/bottom_nav_bar/bottom_nav_bar.dart';
 
 import '../../feature/screens/home_screen/presentation/home_screen.dart';
 import '../../feature/screens/splash/splash_screen.dart';
