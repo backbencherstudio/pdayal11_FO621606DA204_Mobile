@@ -1,0 +1,214 @@
+
+import 'package:go_router/go_router.dart';
+import 'package:pdayal1_mobile/src/core/routes/route_constant.dart';
+import 'package:pdayal1_mobile/src/feature/common_widgets/bottom_nav_bar/bottom_nav_bar.dart';
+
+import '../../feature/screens/splash/splash_screen.dart';
+import 'build_page_with_transition.dart';
+
+class RouteConfig {
+  GoRouter goRouter = GoRouter(
+    initialLocation: RouteConst.splashScreen,
+
+    /// Start at the splash screen
+    routes: [
+      // StatefulShellRoute.indexedStack(
+      //   builder: (context, state, navigationShell) =>
+      //       BottomNavBar(navigationShell: navigationShell),
+      //   branches: [
+      //     StatefulShellBranch(
+      //       routes: [
+      //         GoRoute(
+      //           path: RouteConst.homeScreen,
+      //           builder: (context, state) => const HomeScreenViewer(),
+      //         ),
+      //       ],
+      //     ),
+      //     StatefulShellBranch(
+      //       routes: [
+      //         GoRoute(
+      //           path: RouteConst.jobScreen,
+      //           builder: (context, state) => const JobScreen(),
+      //         ),
+      //       ],
+      //     ),
+      //     StatefulShellBranch(
+      //       routes: [
+      //         GoRoute(
+      //           path: RouteConst.mapScreen,
+      //           builder: (context, state) => const MapScreen(),
+      //         ),
+      //       ],
+      //     ),
+      //     StatefulShellBranch(
+      //       routes: [
+      //         GoRoute(
+      //           path: RouteConst.settingScreen,
+      //           builder: (context, state) => const ProfileSettingScreen(),
+      //         ),
+      //       ],
+      //     ),
+      //   ],
+      // ),
+
+      GoRoute(
+        path: RouteConst.splashScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: SplashScreen(),
+          );
+        },
+      ),
+
+  //     GoRoute(
+  //       path: RouteConst.signInScreen,
+  //       pageBuilder: (context, state) {
+  //         return buildPageWithTransition(
+  //           context: context,
+  //           state: state,
+  //           transitionType: PageTransitionType.slideBottomToTop,
+  //           child: SignInScreen(),
+  //         );
+  //       },
+  //     ),
+
+  //     GoRoute(
+  //       path: RouteConst.forgetPasswordScreen,
+  //       pageBuilder: (context, state) {
+  //         return buildPageWithTransition(
+  //           context: context,
+  //           state: state,
+  //           transitionType: PageTransitionType.slideRightToLeft,
+  //           child: ForgetPasswordScreen(),
+  //         );
+  //       },
+  //     ),
+
+  //     GoRoute(
+  //       path: RouteConst.otpVerificationScreen,
+  //       pageBuilder: (context, state) {
+  //         final otpParameterModel = state.extra as OtpParameterModel;
+  //         return buildPageWithTransition(
+  //           context: context,
+  //           state: state,
+  //           transitionType: PageTransitionType.slideRightToLeft,
+  //           child: OtpScreen(otpParameterModel: otpParameterModel),
+  //         );
+  //       },
+  //     ),
+
+  //     GoRoute(
+  //       path: RouteConst.passwordResetScreen,
+  //       pageBuilder: (context, state) {
+  //         final otpParameterModel = state.extra as OtpParameterModel;
+  //         return buildPageWithTransition(
+  //           context: context,
+  //           state: state,
+  //           transitionType: PageTransitionType.slideRightToLeft,
+  //           child: PasswordResetScreen(otpParameterModel: otpParameterModel),
+  //         );
+  //       },
+  //     ),
+
+  //     GoRoute(
+  //       path: RouteConst.successfulScreen,
+  //       pageBuilder: (context, state) {
+  //         final otpParameterModel = state.extra as OtpParameterModel;
+  //         return buildPageWithTransition(
+  //           context: context,
+  //           state: state,
+  //           transitionType: PageTransitionType.slideRightToLeft,
+  //           child: SuccessfulScreen(otpParameterModel: otpParameterModel),
+  //         );
+  //       },
+  //     ),
+
+  //     GoRoute(
+  //       path: RouteConst.signUpScreen,
+  //       pageBuilder: (context, state) {
+  //         return buildPageWithTransition(
+  //           context: context,
+  //           state: state,
+  //           transitionType: PageTransitionType.slideBottomToTop,
+  //           child: SignUpScreen(),
+  //         );
+  //       },
+  //     ),
+
+  //     GoRoute(
+  //       path: RouteConst.inspectionScreen,
+  //       pageBuilder: (context, state) {
+  //         return buildPageWithTransition(
+  //           context: context,
+  //           state: state,
+  //           transitionType: PageTransitionType.slideRightToLeft,
+  //           child: InspectionScreen(),
+  //         );
+  //       },
+  //     ),
+
+  //     GoRoute(
+  //       path: RouteConst.inspectionReport,
+  //       pageBuilder: (context, state) {
+  //         return buildPageWithTransition(
+  //           context: context,
+  //           state: state,
+  //           transitionType: PageTransitionType.slideRightToLeft,
+  //           child: InspectionReport(),
+  //         );
+  //       },
+  //     ),
+
+  //     GoRoute(
+  //       path: RouteConst.notification,
+  //       pageBuilder: (context, state) {
+  //         return buildPageWithTransition(
+  //           context: context,
+  //           state: state,
+  //           transitionType: PageTransitionType.slideRightToLeft,
+  //           child: NotificationScreen(),
+  //         );
+  //       },
+  //     ),
+
+  //     GoRoute(
+  //       path: RouteConst.editProfileScreen,
+  //       pageBuilder: (context, state) {
+  //         return buildPageWithTransition(
+  //           context: context,
+  //           state: state,
+  //           transitionType: PageTransitionType.slideRightToLeft,
+  //           child: EditProfileScreen(),
+  //         );
+  //       },
+  //     ),
+
+  //     GoRoute(
+  //       path: RouteConst.changePasswordScreen,
+  //       pageBuilder: (context, state) {
+  //         return buildPageWithTransition(
+  //           context: context,
+  //           state: state,
+  //           transitionType: PageTransitionType.slideRightToLeft,
+  //           child: ChangePasswordScreen(),
+  //         );
+  //       },
+  //     ),
+
+  //     GoRoute(
+  //       path: RouteConst.helpScreen,
+  //       pageBuilder: (context, state) {
+  //         return buildPageWithTransition(
+  //           context: context,
+  //           state: state,
+  //           transitionType: PageTransitionType.slideRightToLeft,
+  //           child: HelpScreen(),
+  //         );
+  //       },
+  //     ),
+    ],
+  );
+}
