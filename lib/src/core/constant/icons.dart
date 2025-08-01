@@ -1,5 +1,13 @@
 class AppIcons {
   static const String iconPath = 'assets/icons';
+  static const String plus = "$iconPath/plus.svg";
+
+
+
+
+
+
+
   static const String bottomNavIcon = '$iconPath/bottom_nav_bar';
   static const String home = 'assets/home_icons';
 
