@@ -9,12 +9,14 @@ class PrimaryButton extends StatelessWidget {
   final double? borderRadius;
   final void Function()? onTap;
   final bool isIconOn;
+  final double? width;
   const PrimaryButton({
     super.key,
     this.borderRadius,
     required this.title,
     required this.onTap,
     required this.isIconOn,
+   this.width,
   });
 
   @override
@@ -23,6 +25,7 @@ class PrimaryButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+      width:width?? 303.w ,
         padding: EdgeInsets.all(12.r),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(borderRadius ?? 30.r),

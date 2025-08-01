@@ -11,7 +11,8 @@ class Dummy extends StatelessWidget {
       body: Column(
         children: [
           SizedBox(height: 150.h,),
-          CommonWidgets.primaryButton(title: "title", onTap: (){}, radious: 12.r, isIconOn: false)
+      CommonWidgets.primaryButton(title: "fgdsfh", radious: 12.h, onTap: (){}, isIconOn: false, width: 143.w)
+
         ],
       ),
     );
