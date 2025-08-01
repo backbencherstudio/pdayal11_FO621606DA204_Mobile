@@ -1,6 +1,6 @@
 import 'dart:convert';
+import 'package:pdayal1_mobile/src/data/models/job_model.dart';
 import '../dummy_data/job_data.dart';
-import '../models/job_model.dart';
 
 class JobRepo{
   Future<List<Job>> fetchJobs() async {
