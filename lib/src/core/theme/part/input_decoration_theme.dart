@@ -6,7 +6,7 @@ import '../theme_extension/color_pallete.dart';
 
 class AppInputDecorationTheme {
   static InputDecorationTheme lightInputDecorationTheme = InputDecorationTheme(
-    contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+    contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 15.h),
     filled: true,
     fillColor: Colors.transparent,
     hintStyle: GoogleFonts.inter(

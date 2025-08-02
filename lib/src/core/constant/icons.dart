@@ -1,7 +1,9 @@
 class AppIcons {
   static const String iconPath = 'assets/icons';
   static const String plus = "$iconPath/plus.svg";
-  static const String books = "$iconPath/books.svg";
+  static const String cancel = "$iconPath/remove.svg";
+  static const String calender = "$iconPath/calender.svg";
+
 
 
 
@@ -25,8 +27,6 @@ class AppIcons {
   static const String search = '$iconPath/search.svg';
 
   static const String location = '$home/location.svg';
-  static const String calender = '$home/calender.svg';
-
   static const String bell = "$home/bell.svg";
   static const String backButton = "$home/back.svg";
   static const String googleLogo = "$iconPath/google.svg";
