@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:pdayal1_mobile/src/data/models/job_model.dart';
-
 import '../dummy_data/job_data.dart';
 
 class JobRepo{
