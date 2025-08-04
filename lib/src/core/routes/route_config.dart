@@ -4,11 +4,12 @@ import 'package:pdayal1_mobile/src/core/routes/route_constant.dart';
 import 'package:pdayal1_mobile/src/feature/screens/home_screen/presentation/home_screen.dart';
 
 import '../../feature/screens/registration_screen/presentation/registration_screen.dart';
+import '../../feature/screens/today_study_task/presentation/today_study_tasks_screen.dart';
 import 'build_page_with_transition.dart';
 
 class RouteConfig {
   GoRouter goRouter = GoRouter(
-    initialLocation: RouteConst.registrationScreen,
+    initialLocation: RouteConst.todayStudyTasksScreen,
 
     /// Start at the splash screen
     routes: [
@@ -75,17 +76,17 @@ class RouteConfig {
         },
       ),
 
-  //     GoRoute(
-  //       path: RouteConst.forgetPasswordScreen,
-  //       pageBuilder: (context, state) {
-  //         return buildPageWithTransition(
-  //           context: context,
-  //           state: state,
-  //           transitionType: PageTransitionType.slideRightToLeft,
-  //           child: ForgetPasswordScreen(),
-  //         );
-  //       },
-  //     ),
+      GoRoute(
+        path: RouteConst.todayStudyTasksScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: TodayStudyTasksScreen(),
+          );
+        },
+      ),
 
   //     GoRoute(
   //       path: RouteConst.otpVerificationScreen,

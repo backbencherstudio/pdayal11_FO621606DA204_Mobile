@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pdayal1_mobile/src/core/constant/icons.dart';
 import 'package:pdayal1_mobile/src/feature/common_widgets/common_widgets.dart';
 import 'package:pdayal1_mobile/src/feature/screens/home_screen/widgets/title_text.dart';
 import '../../../../core/theme/theme_extension/color_pallete.dart';
+import '../riverpod/show_today_tasks_provider.dart';
 import 'cancel_button.dart';
 import 'date_picker.dart';
 
 void onTapAddNewTest(BuildContext context) {
   TextEditingController dateController = TextEditingController();
   TextEditingController nameController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   showDialog(
     context: context,
@@ -23,7 +26,7 @@ void onTapAddNewTest(BuildContext context) {
           elevation: 1,
           child: SizedBox(
             // height: 487.h,
-             width: 335.w,
+            width: 335.w,
             child: Padding(
               padding: EdgeInsets.all(16.r),
               child: SingleChildScrollView(
@@ -65,6 +68,12 @@ void onTapAddNewTest(BuildContext context) {
                                 color: AppColor.secondaryTextColor,
                               ),
                             ),
+                            // validator: (value) {
+                            //   if (value!.isEmpty) {
+                            //     return 'Please enter your Test Name';
+                            //   }
+                            //   return null;
+                            // }
                           ),
                           SizedBox(height: 18.h),
                           TitleText(style: style, title: 'Test Date'),
@@ -74,7 +83,7 @@ void onTapAddNewTest(BuildContext context) {
                           TitleText(style: style, title: 'Topics to Study'),
                           SizedBox(height: 10.h),
                           TextFormField(
-                            controller: nameController,
+                            controller: descriptionController,
                             keyboardType: TextInputType.text,
                             textInputAction: TextInputAction.next,
                             maxLines: 4,
@@ -85,20 +94,51 @@ void onTapAddNewTest(BuildContext context) {
                                 color: AppColor.secondaryTextColor,
                               ),
                             ),
+                            // validator: (value) {
+                            //   if (value!.isEmpty) {
+                            //     return 'Please enter your Test Name';
+                            //   }
+                            //   return null;
+                            // }
                           ),
                           SizedBox(height: 24.h),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Expanded(child: CancelButton()),
                               SizedBox(width: 16.w),
                               Expanded(
-                                child: CommonWidgets.primaryButton(
-                                  title: 'Add Test',
-                                  radius: 8.r,
-                                  onTap: () {},
-                                  isIconOn: true,
-                                  width: 144.w,
+                                child: Consumer(
+                                  builder: (_, ref, __) {
+                                    return CommonWidgets.primaryButton(
+                                      title: 'Add Test',
+                                      radius: 8.r,
+                                      onTap: () {
+                                        if (formKey.currentState!.validate()) {
+                                          final title =
+                                              nameController.text.trim();
+                                          final date =
+                                              dateController.text.trim();
+
+                                          ref
+                                              .read(
+                                                chapterListProvider.notifier,
+                                              )
+                                              .add(
+                                                Chapter(
+                                                  title: title,
+                                                  date: date,
+                                                ),
+                                              );
+                                          ref
+                                              .read(showTodayTasks.notifier)
+                                              .state = 1;
+                                          Navigator.of(context).pop();
+                                        }
+                                      },
+                                      isIconOn: true,
+                                      width: 144.w,
+                                    );
+                                  },
                                 ),
                               ),
                             ],
