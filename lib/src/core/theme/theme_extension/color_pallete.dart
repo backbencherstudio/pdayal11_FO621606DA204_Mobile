@@ -4,8 +4,10 @@ class AppColor {
   static const Color screenBackgroundColor = Color(0xffFAFAFA);
   static const Color primaryColor = Color(0xFF328B7F);
   static const Color secondaryColor = Color(0xFF1E78F0);
+  static const Color btnBg = Color(0xff87CE1A);
   static const Color error = Color(0xFFEB3D4D);
   static const Color primaryTextColor = Color(0xFF1D1F2C);
+  static const Color dark = Color(0xff000000);
   static const Color secondaryTextColor = Color(0xFF777980);
   static const Color profileTextColor = Color(0xff4A4C56);
   static const Color white = Color(0xFFFFFFFF);

@@ -10,6 +10,8 @@ class PrimaryButton extends StatelessWidget {
   final void Function()? onTap;
   final bool isIconOn;
   final double? width;
+  final EdgeInsetsGeometry? padding;
+  final TextStyle? textStyle;
   const PrimaryButton({
     super.key,
     this.borderRadius,
@@ -17,6 +19,8 @@ class PrimaryButton extends StatelessWidget {
     required this.onTap,
     required this.isIconOn,
     this.width,
+    this.padding,
+    this.textStyle,
   });
 
   @override
@@ -26,7 +30,7 @@ class PrimaryButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: width ?? 303.w,
-        padding: EdgeInsets.all(12.r),
+        padding: padding ?? EdgeInsets.all(12.r),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(borderRadius ?? 30.r),
           gradient: LinearGradient(
@@ -45,7 +49,7 @@ class PrimaryButton extends StatelessWidget {
 
             Text(
               title,
-              style: style.bodyLarge!.copyWith(
+              style: textStyle?? style.bodyLarge!.copyWith(
                 fontWeight: FontWeight.w500,
                 color: AppColor.screenBackgroundColor,
               ),

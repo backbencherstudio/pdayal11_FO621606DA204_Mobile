@@ -8,6 +8,8 @@ class CommonWidgets {
     required void Function() onTap,
     required bool isIconOn,
     required double? width,
+    TextStyle? textStyle,
+    EdgeInsetsGeometry? padding,
   }) {
     return PrimaryButton(
       title: title,
@@ -15,6 +17,8 @@ class CommonWidgets {
       borderRadius: radius,
       isIconOn: isIconOn,
       width: width,
+      textStyle: textStyle,
+      padding: padding,
     );
   }
 
