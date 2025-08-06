@@ -6,6 +6,7 @@ class AppIcons {
   static const String customBook = "$iconPath/custom_books.svg";
   static const String progress = "$iconPath/progress.svg";
   static const String strong = "$iconPath/strong.svg";
+  static const String fire = "$iconPath/fire.svg";
 
 
 

@@ -20,10 +20,17 @@ static const Color greyTextColor = Color(0xffA5A5AB);
   static const Color dividerColor = Color(0xffE9EAEC);
  static const Color skyBluColor = Color(0xff3866D8);
  static const Color rustedGreen = Color(0xff04971F);
+ static const Color deepGreen = Color(0xff0B9038);
+ static const Color deepYellow = Color(0xffFFD900);
+ static const Color deepRed = Color(0xffE31A1E);
+ static const Color chayan = Color(0xff00CBA8);
+ static const Color blueSky = Color(0xff385DD8);
+ static const Color purpleColor = Color(0xff790497);
 
  // container colors
  static const Color containerBg1 = Color(0xff0887CE);
  static const Color containerBg2 = Color(0xff00CBAB);
+ static const Color softSkyBlue = Color(0xffE7F3FB);
 
  //Home Screen
   static const Color blackText = Color(0xff070707);
