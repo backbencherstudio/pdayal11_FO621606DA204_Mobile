@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pdayal1_mobile/src/feature/screens/today_study_task/widgets/secondary_button.dart';
 
 import '../../../../core/constant/icons.dart';
 import '../../../../core/theme/theme_extension/color_pallete.dart';
@@ -36,26 +37,11 @@ class TopicSection extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: Container(
-            decoration: BoxDecoration(
-              //gradient: LinearGradient(colors: [AppColor.skyBluColor,AppColor.rustedGreen]),
-              color: Color(0xff0887CE).withValues(alpha: 0.10),
-              border: Border.all(color: AppColor.containerBg1),
-              borderRadius: BorderRadius.circular(16.r),
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
-              child: Text(
-                'ABCDEFGHIJKLM',
-                style: style.bodySmall?.copyWith(
-                  fontWeight: FontWeight.w400,
-                  foreground: Paint()..shader = textGradient,
-                ),
-              ),
-            ),
-          ),
+          child: SecondaryButton(style: style, textGradient: textGradient),
         ),
       ],
     );
   }
 }
+
+
