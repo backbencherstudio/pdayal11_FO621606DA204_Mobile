@@ -15,6 +15,7 @@ class CompletedTaskCard extends StatelessWidget {
   final TextTheme style;
   final TodayStudyTasksScreen widget;
 
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -48,10 +49,13 @@ class CompletedTaskCard extends StatelessWidget {
               ],
             ),
             SizedBox(height: 8.h),
-            SecondaryButton(
-              titleText: 'Difficulty: Easy',
-              style: style,
-              textGradient: widget.textGradient,
+            SizedBox(
+              width: 120.w,
+              child: SecondaryButton(
+                titleText: 'Difficulty: Easy',
+                style: style,
+                textGradient: widget.textGradient,
+              ),
             ),
           ],
         ),

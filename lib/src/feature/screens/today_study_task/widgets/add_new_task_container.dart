@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pdayal1_mobile/src/feature/screens/today_study_task/models/add_task_model.dart';
 
 import '../../../../core/theme/theme_extension/color_pallete.dart';
 import '../../../common_widgets/common_widgets.dart';
@@ -9,10 +10,10 @@ import 'add_task_date_picker.dart';
 
 class AddNewTask extends StatefulWidget {
   const AddNewTask({
-    Key? key,
+    super.key,
     required this.style,
     required this.addTaskDateTEController,
-  }) : super(key: key);
+  });
 
   final TextTheme style;
   final TextEditingController addTaskDateTEController;
@@ -86,25 +87,29 @@ class _AddNewTaskState extends State<AddNewTask> {
               ),
               SizedBox(height: 18.h),
               Consumer(
-                builder: (context, ref, _) => CommonWidgets.primaryButton(
-                  title: 'Add Test',
-                  radius: 30.r,
-                  onTap: () {
-                    if (formKey.currentState!.validate()) {
-                      final title = titleController.text.trim();
-                      final date = widget.addTaskDateTEController.text.trim();
+                builder:
+                    (context, ref, _) => Center(
+                      child: CommonWidgets.primaryButton(
+                        title: 'Add Test',
+                        radius: 30.r,
+                        onTap: () {
+                          if (formKey.currentState!.validate()) {
+                            final title = titleController.text.trim();
+                            final date =
+                                widget.addTaskDateTEController.text.trim();
 
-                      ref.read(pendingTaskListProvider.notifier).add(
-                        Chapter(title: title, date: date),
-                      );
-                      ref.read(showPendingTasks.notifier).state = 1;
-                      titleController.clear();
-                      widget.addTaskDateTEController.clear();
-                    }
-                  },
-                  isIconOn: true,
-                  width: 271.w,
-                ),
+                            ref
+                                .read(pendingTaskListProvider.notifier)
+                                .add(TaskModel(title: title, date: date));
+                            ref.read(showPendingTasks.notifier).state = 1;
+                            titleController.clear();
+                            widget.addTaskDateTEController.clear();
+                          }
+                        },
+                        isIconOn: true,
+                        width: 271.w,
+                      ),
+                    ),
               ),
             ],
           ),

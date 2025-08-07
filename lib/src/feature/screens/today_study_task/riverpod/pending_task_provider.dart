@@ -1,22 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../models/add_task_model.dart';
 
 final showPendingTasks = StateProvider<int>((ref) => 0);
-
-class Chapter {
-  final String title;
-  final String date;
-
-  Chapter({required this.title, required this.date});
-}
-
-class PendingTaskListNotifier extends StateNotifier<List<Chapter>> {
+class PendingTaskListNotifier extends StateNotifier<List<TaskModel>> {
   PendingTaskListNotifier() : super([]);
 
-  void add(Chapter chapter) {
-    state = [...state, chapter];
+  void add(TaskModel tasksModel) {
+    state = [...state, tasksModel];
   }
 }
 
-final pendingTaskListProvider = StateNotifierProvider<PendingTaskListNotifier, List<Chapter>>(
+final pendingTaskListProvider = StateNotifierProvider<PendingTaskListNotifier, List<TaskModel>>(
       (ref) => PendingTaskListNotifier(),
 );

@@ -11,10 +11,14 @@ class TopicSection extends StatelessWidget {
     super.key,
     required this.style,
     required this.textGradient,
+    required this.topicBtn,
+    required this.topicsCount,
   });
 
   final TextTheme style;
   final Shader? textGradient;
+  final String topicBtn;
+  final String topicsCount;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +31,7 @@ class TopicSection extends StatelessWidget {
               SvgPicture.asset(AppIcons.customBook, width: 14.w, height: 14.h),
               SizedBox(width: 6.w),
               Text(
-                'Topics (1)',
+               "Topics ($topicsCount)",
                 style: style.bodySmall?.copyWith(
                   fontWeight: FontWeight.w400,
                   color: AppColor.blackText,
@@ -37,11 +41,13 @@ class TopicSection extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: SecondaryButton(style: style, textGradient: textGradient),
+          child: SecondaryButton(
+            style: style,
+            textGradient: textGradient,
+            topicBtn: topicBtn,
+          ),
         ),
       ],
     );
   }
 }
-
-

@@ -8,12 +8,12 @@ class TaskCard extends StatelessWidget {
   const TaskCard({
     super.key,
     required this.style,
-    required this.chapterTitle,
+    required this.pendingTaskTitle,
     required this.date,
   });
 
   final TextTheme style;
-  final String chapterTitle;
+  final String pendingTaskTitle;
   final String date;
 
   @override
@@ -31,7 +31,7 @@ class TaskCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  chapterTitle,
+                  pendingTaskTitle,
                   style: style.bodyLarge?.copyWith(
                     color: AppColor.blackText,
                     fontWeight: FontWeight.w400,

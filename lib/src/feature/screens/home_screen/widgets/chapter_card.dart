@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../../../../core/constant/icons.dart';
 import '../../../../core/theme/theme_extension/color_pallete.dart';
 import '../../../common_widgets/common_widgets.dart';
-import '../riverpod/select_date_provider.dart';
-
 
 class ChapterCard extends StatelessWidget {
   final TextTheme style;
@@ -49,27 +45,21 @@ class ChapterCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-
-              Consumer(
-                builder: (context,ref,_) {
-                  final dateData = ref.watch(selectedDateProvider);
-                  return Expanded(
-                    flex: 1,
-                    child: CommonWidgets.primaryButton(
-                      title: dateData,
-                      onTap: () {
-                        debugPrint(dateData);
-                      },
-                      isIconOn: false,
-                      width: 65.w,
-                      radius: 16.r,
-                      textStyle: style.bodySmall?.copyWith(
-                        fontWeight: FontWeight.w400,
-                        color: AppColor.white
-                      )
-                    ),
-                  );
-                }
+              Expanded(
+                flex: 1,
+                child: CommonWidgets.primaryButton(
+                  title: date,
+                  onTap: () {
+                    debugPrint(date);
+                  },
+                  isIconOn: false,
+                  width: 65.w,
+                  radius: 16.r,
+                  textStyle: style.bodySmall?.copyWith(
+                    fontWeight: FontWeight.w400,
+                    color: AppColor.white,
+                  ),
+                ),
               ),
             ],
           ),
@@ -78,10 +68,13 @@ class ChapterCard extends StatelessWidget {
             children: [
               SvgPicture.asset(AppIcons.customBook, width: 16.w, height: 16.h),
               SizedBox(width: 6.w),
-               Text('Custom',style: style.bodySmall?.copyWith(
-                   fontWeight: FontWeight.w400,
-                   color: AppColor.blackText
-               ),),
+              Text(
+                'Custom',
+                style: style.bodySmall?.copyWith(
+                  fontWeight: FontWeight.w400,
+                  color: AppColor.blackText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 12.h),
@@ -94,13 +87,12 @@ class ChapterCard extends StatelessWidget {
             isIconOn: false,
             width: 303.w,
             textStyle: style.bodyMedium?.copyWith(
-                fontWeight: FontWeight.w500,
-                color: AppColor.white
-            )
+              fontWeight: FontWeight.w500,
+              color: AppColor.white,
+            ),
           ),
         ],
       ),
     );
   }
 }
-
