@@ -22,29 +22,50 @@ class TopicSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<String> topicList =
+        topicBtn
+            .split(',')
+            .map((topic) => topic.trim())
+            .where((topic) => topic.isNotEmpty)
+            .toList();
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Expanded(
-          child: Row(
-            children: [
-              SvgPicture.asset(AppIcons.customBook, width: 14.w, height: 14.h),
-              SizedBox(width: 6.w),
-              Text(
-               "Topics ($topicsCount)",
-                style: style.bodySmall?.copyWith(
-                  fontWeight: FontWeight.w400,
-                  color: AppColor.blackText,
-                ),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SvgPicture.asset(AppIcons.customBook, width: 14.w, height: 14.h),
+            SizedBox(width: 6.w),
+            Text(
+              "Topics ($topicsCount)",
+              style: style.bodySmall?.copyWith(
+                fontWeight: FontWeight.w400,
+                color: AppColor.blackText,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
+
+        Spacer(),
+
         Expanded(
-          child: SecondaryButton(
-            style: style,
-            textGradient: textGradient,
-            topicBtn: topicBtn,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children:
+                  topicList.map((topic) {
+                    return Padding(
+                      padding: EdgeInsets.only(right: 8.w),
+                      child: SecondaryButton(
+                        style: style,
+                        textGradient: textGradient,
+                        titleText: topic,
+                      ),
+                    );
+                  }).toList(),
+            ),
           ),
         ),
       ],

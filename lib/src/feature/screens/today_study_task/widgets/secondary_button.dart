@@ -29,7 +29,7 @@ class SecondaryButton extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
         child: Center(
           child: Text(
-            topicBtn ?? titleText!,
+              (topicBtn ?? titleText) ?? '',
             style: style.bodySmall?.copyWith(
               fontWeight: FontWeight.w400,
               foreground: Paint()..shader = textGradient,

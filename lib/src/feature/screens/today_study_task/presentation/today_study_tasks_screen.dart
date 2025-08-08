@@ -5,6 +5,7 @@ import 'package:pdayal1_mobile/src/core/theme/theme_extension/color_pallete.dart
 import 'package:pdayal1_mobile/src/feature/screens/home_screen/riverpod/show_today_tasks_provider.dart';
 import 'package:pdayal1_mobile/src/feature/screens/today_study_task/riverpod/progress_provider.dart';
 import '../../home_screen/models/chapter_model.dart';
+import '../riverpod/completed_task_list_provider.dart';
 import '../riverpod/pending_task_provider.dart';
 import '../widgets/add_new_task_container.dart';
 import '../widgets/completed_task_container.dart';
@@ -155,13 +156,19 @@ class _TodayStudyTasksScreenState extends State<TodayStudyTasksScreen> {
                       SizedBox(height: 16.h),
                       PendingTaskContainer(style: style),
                       // SizedBox(height: 20.h),
-                      Text(
-                        'Completed Tasks (0)',
-                        style: style.titleMedium?.copyWith(
-                          color: AppColor.blackText,
-                          fontWeight: FontWeight.w500,
-                        ),
+                      Consumer(
+                        builder: (context, ref, _) {
+                          final completedList = ref.watch(completedTaskListProvider);
+                          return Text(
+                            'Completed Tasks (${completedList.length})',
+                            style: style.titleMedium?.copyWith(
+                              color: AppColor.blackText,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          );
+                        },
                       ),
+
                       SizedBox(height: 16.h),
                       CompletedTaskContainer(style: style, widget: widget),
                       SizedBox(height: 20.h),
