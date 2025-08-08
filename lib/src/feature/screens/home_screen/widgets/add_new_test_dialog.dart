@@ -1,11 +1,15 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pdayal1_mobile/src/core/constant/icons.dart';
 import 'package:pdayal1_mobile/src/feature/common_widgets/common_widgets.dart';
 import 'package:pdayal1_mobile/src/feature/screens/home_screen/widgets/title_text.dart';
 import '../../../../core/theme/theme_extension/color_pallete.dart';
+import '../models/chapter_model.dart';
 import '../riverpod/show_today_tasks_provider.dart';
 import 'cancel_button.dart';
 import 'date_picker.dart';
@@ -42,10 +46,15 @@ void onTapAddNewTest(BuildContext context) {
                             color: AppColor.blackText,
                           ),
                         ),
-                        SvgPicture.asset(
-                          AppIcons.cancel,
-                          width: 20.w,
-                          height: 20.h,
+                        InkWell(
+                          onTap: (){
+                            Navigator.pop(context);
+                          },
+                          child: SvgPicture.asset(
+                            AppIcons.cancel,
+                            width: 20.w,
+                            height: 20.h,
+                          ),
                         ),
                       ],
                     ),
@@ -113,11 +122,15 @@ void onTapAddNewTest(BuildContext context) {
                                       title: 'Add Test',
                                       radius: 8.r,
                                       onTap: () {
+                                        final random = Random();
+                                        int chapterId = random.nextInt(1000);
                                         if (formKey.currentState!.validate()) {
                                           final title =
                                               nameController.text.trim();
                                           final date =
                                               dateController.text.trim();
+
+                                          final topics = descriptionController.text.trim();
 
                                           ref
                                               .read(
@@ -125,8 +138,10 @@ void onTapAddNewTest(BuildContext context) {
                                               )
                                               .add(
                                                 Chapter(
+                                                  chapterId: chapterId.toString(),
                                                   title: title,
                                                   date: date,
+                                                  topics: topics,
                                                 ),
                                               );
                                           ref

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pdayal1_mobile/src/core/constant/images.dart';
 
 import '../../../../core/constant/icons.dart';
 import '../../../../core/theme/theme_extension/color_pallete.dart';
+import '../riverpod/progress_provider.dart';
 
 class KeepGoing extends StatelessWidget {
   const KeepGoing({super.key, required this.style});
@@ -12,35 +15,47 @@ class KeepGoing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-            SvgPicture.asset(AppIcons.strong, width: 14.w, height: 14.h),
-            SizedBox(width: 8.w),
-            Text(
-              'keep going!',
-              style: style.bodySmall?.copyWith(
-                color: AppColor.profileTextColor,
-              ),
-            ),
-          ],
-        ),
+    return Consumer(
+      builder: (context, ref, _) {
+        final progress = ref.watch(progressProvider.notifier).state;
 
-        Row(
+        final isCompleted = progress >= 1;
+        final leftText = isCompleted ? 'All Done' : 'Keep Going!';
+        final rightText = isCompleted ? 'Excellent!' : 'Needs Attention';
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SvgPicture.asset(AppIcons.fire, width: 14.w, height: 14.h),
-            SizedBox(width: 6.w),
-            Text(
-              'Needs Attention',
-              style: style.bodySmall?.copyWith(
-                color: AppColor.profileTextColor,
-              ),
+            Row(
+              children: [
+                if (isCompleted)
+                  Image.asset(AppImages.party, width: 14.w, height: 14.h)
+                else
+                  SvgPicture.asset(AppIcons.strong, width: 14.w, height: 14.h),
+                SizedBox(width: 8.w),
+                Text(
+                  leftText,
+                  style: style.bodySmall?.copyWith(
+                    color: AppColor.profileTextColor,
+                  ),
+                ),
+              ],
+            ),
+
+            Row(
+              children: [
+                SvgPicture.asset(AppIcons.fire, width: 14.w, height: 14.h),
+                SizedBox(width: 6.w),
+                Text(
+                  rightText,
+                  style: style.bodySmall?.copyWith(
+                    color: AppColor.profileTextColor,
+                  ),
+                ),
+              ],
             ),
           ],
-        ),
-      ],
+        );
+      },
     );
   }
 }

@@ -41,7 +41,7 @@ class _AddTaskDatePickerState extends State<AddTaskDatePicker> {
             hintText: 'mm/dd/yyyy',
             hintStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
               color: AppColor.greyTextColor,
-                  fontWeight: FontWeight.w400
+              fontWeight: FontWeight.w400,
             ),
             suffixIcon: Padding(
               padding: EdgeInsets.all(8.w),
@@ -116,5 +116,11 @@ class _AddTaskDatePickerState extends State<AddTaskDatePicker> {
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    widget.dateController.dispose();
+    super.dispose();
   }
 }
