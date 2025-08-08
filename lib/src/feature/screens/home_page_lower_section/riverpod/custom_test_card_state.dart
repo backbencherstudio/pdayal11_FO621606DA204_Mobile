@@ -2,12 +2,12 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final generateRandom = Provider<int>((ref){
+final generateRandom = Provider.family<int, int>((ref, index){
   final random = Random();
   return random.nextInt(3);
 });
 
-final randomBorderColor = Provider<List<Color>>((ref){
+final randomBorderColor = Provider.family<List<Color>, int>((ref, index){
   final randomColorPalette = [
     [
       Color(0xFF385DD8),
@@ -20,10 +20,10 @@ final randomBorderColor = Provider<List<Color>>((ref){
       Color(0xFFFFCC00)
     ]
   ];
-  return randomColorPalette[ref.watch(generateRandom)];
+  return randomColorPalette[ref.watch(generateRandom(index))];
 });
 
-final randomBackgroundColor = Provider<List<Color>>((ref){
+final randomBackgroundColor = Provider.family<List<Color>, int>((ref, index){
   final randomColorPalette = [
     [
       Color(0xFF385DD8).withValues(alpha: 0.08),
@@ -36,7 +36,7 @@ final randomBackgroundColor = Provider<List<Color>>((ref){
       Color(0xFFFFCC00).withValues(alpha: 0.08),
     ]
   ];
-  return randomColorPalette[ref.watch(generateRandom)];
+  return randomColorPalette[ref.watch(generateRandom(index))];
 });
 
 

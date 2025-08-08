@@ -19,4 +19,5 @@ class RouteConst{
   static const String changePasswordScreen = '/change-password';
   static const String helpScreen = '/help';
 static const String dummy = "/Dummy";
+  static const String lowerHomeScreen = "/LowerHomeScreen";
 }
