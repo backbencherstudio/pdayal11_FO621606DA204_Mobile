@@ -1,14 +1,16 @@
 class TaskModel {
   final String title;
   final String date;
+  final String difficulty;
 
-
-  TaskModel({required this.title, required this.date});
+  TaskModel({
+    required this.title,
+    required this.date,
+    required this.difficulty,
+  });
 
   @override
   bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
     return other is TaskModel &&
         other.title == title &&
         other.date == date;

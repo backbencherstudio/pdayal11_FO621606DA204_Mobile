@@ -10,11 +10,16 @@ class CompletedTaskCard extends StatelessWidget {
     super.key,
     required this.style,
     required this.widget,
+    required this.taskTitle,
+    required this.taskDate,
+    required this.difficulty,
   });
 
   final TextTheme style;
   final TodayStudyTasksScreen widget;
-
+  final String taskTitle;
+  final String taskDate;
+  final String difficulty;
 
   @override
   Widget build(BuildContext context) {
@@ -32,15 +37,14 @@ class CompletedTaskCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Bangla',
+                  taskTitle,
                   style: style.bodyLarge?.copyWith(
                     color: AppColor.textColor,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-
                 Text(
-                  '2025/07/21',
+                  taskDate,
                   style: style.bodyMedium?.copyWith(
                     color: AppColor.profileTextColor,
                     fontWeight: FontWeight.w400,
@@ -50,9 +54,9 @@ class CompletedTaskCard extends StatelessWidget {
             ),
             SizedBox(height: 8.h),
             SizedBox(
-              width: 120.w,
+              width: 160.w,
               child: SecondaryButton(
-                titleText: 'Difficulty: Easy',
+                titleText: 'Difficulty: $difficulty',
                 style: style,
                 textGradient: widget.textGradient,
               ),
