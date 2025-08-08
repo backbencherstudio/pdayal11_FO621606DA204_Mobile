@@ -33,11 +33,11 @@ class ProgressBar extends StatelessWidget {
         ),
         Spacer(),
         Consumer(
-          builder: (context,ref,_) {
+          builder: (context, ref, _) {
             final progress = ref.watch(progressProvider.notifier).state;
             return Expanded(
               child: Text(
-                "${progress * 100}%",
+                '${(progress * 100).toInt()}%',
                 textAlign: TextAlign.end,
                 style: style.bodySmall?.copyWith(
                   color: AppColor.profileTextColor,
@@ -45,7 +45,7 @@ class ProgressBar extends StatelessWidget {
                 ),
               ),
             );
-          }
+          },
         ),
       ],
     );

@@ -5,6 +5,7 @@ import 'package:pdayal1_mobile/src/feature/screens/today_study_task/riverpod/stu
 import 'package:pdayal1_mobile/src/feature/screens/today_study_task/widgets/resource_card_container.dart';
 import '../../../../core/theme/theme_extension/color_pallete.dart';
 import '../../../common_widgets/common_widgets.dart';
+import '../models/resource_model.dart';
 import 'add_study_resource_input.dart';
 
 class StudyResourceSection extends StatefulWidget {
@@ -69,7 +70,7 @@ class _StudyResourceSectionState extends State<StudyResourceSection> {
 
                           ref
                               .read(resourceListProvider.notifier)
-                              .add(Chapter(title: title, urlOrNote: urlOrNote));
+                              .add(Resource(title: title, urlOrNote: urlOrNote, ));
                           ref.read(showResourceCard.notifier).state = 1;
 
                           _titleController.clear();

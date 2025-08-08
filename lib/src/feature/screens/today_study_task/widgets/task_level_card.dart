@@ -9,7 +9,7 @@ class TaskLevelCard extends StatelessWidget {
     this.color,
     this.title,
     this.textColor,
-    this.border,
+    this.border, this.onTap,
   });
 
   final TextTheme style;
@@ -17,25 +17,29 @@ class TaskLevelCard extends StatelessWidget {
   final String? title;
   final Color? textColor;
   final Border? border;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: color ?? AppColor.deepGreen,
-        borderRadius: BorderRadius.circular(8.r),
-        border: border,
-      ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
-        child: Align(
-          alignment: Alignment.center,
-          child: Text(
-            title ?? 'Easy',
-            style: style.bodyLarge?.copyWith(
-              color: textColor ?? AppColor.white,
-              fontWeight: FontWeight.w400,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(8.r),
+          border: border,
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+          child: Align(
+            alignment: Alignment.center,
+            child: Text(
+              title!,
+              style: style.bodyLarge?.copyWith(
+                color: textColor ?? AppColor.white,
+                fontWeight: FontWeight.w400,
+              ),
             ),
           ),
         ),

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:pdayal1_mobile/src/core/constant/images.dart';
 import 'package:pdayal1_mobile/src/core/theme/theme_extension/color_pallete.dart';
 import 'package:pdayal1_mobile/src/feature/screens/home_screen/riverpod/show_today_tasks_provider.dart';
-import '../../../../core/routes/route_constant.dart';
 import '../../../common_widgets/common_widgets.dart';
 import '../../today_study_task/riverpod/pending_task_provider.dart';
 import '../widgets/chapter_card.dart';
@@ -30,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: AppColor.homeBg,
       body: SafeArea(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ProfileSection(style: style),
             SizedBox(height: 32.h),
@@ -43,18 +42,22 @@ class _HomeScreenState extends State<HomeScreen> {
                       final selectedContainer = ref.watch(showPendingTasks);
                       final selectedUpcoming = ref.watch(showTodayTasks);
                       return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           TestReadyContainer(
                             style: style,
                             textGradient: textGradient,
                           ),
                           SizedBox(height: 20.h),
-                          Text(
-                            "Today's Study Tasks",
-                            style: style.titleMedium?.copyWith(
-                              fontWeight: FontWeight.w500,
-                              color: AppColor.blackText,
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Today's Study Tasks",
+                              style: style.titleMedium?.copyWith(
+                                fontWeight: FontWeight.w500,
+                                color: AppColor.blackText,
+                              ),
                             ),
                           ),
                           SizedBox(height: 16.h),
@@ -101,11 +104,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
 
                           SizedBox(height: 22.h),
-                          Text(
-                            "Upcoming Tests",
-                            style: style.titleMedium?.copyWith(
-                              fontWeight: FontWeight.w500,
-                              color: AppColor.blackText,
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Upcoming Tests",
+                              style: style.titleMedium?.copyWith(
+                                fontWeight: FontWeight.w500,
+                                color: AppColor.blackText,
+                              ),
                             ),
                           ),
                           SizedBox(height: 16.h),
@@ -137,19 +143,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                 return Column(
                                   children: [
                                     ...List.generate(chapterList.length, (
-                                        index,
-                                        ) {
+                                      index,
+                                    ) {
                                       final item = chapterList[index];
-                                      return  Padding(
-                                        padding:  EdgeInsets.only(bottom: 10.h),
-                                        child: UpComingTaskCard(),
+                                      return Padding(
+                                        padding: EdgeInsets.only(bottom: 10.h),
+                                        child: UpComingTaskCard(chapter: item),
                                       );
                                     }),
                                   ],
                                 );
                               },
                             ),
-
                         ],
                       );
                     },
@@ -163,5 +168,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-

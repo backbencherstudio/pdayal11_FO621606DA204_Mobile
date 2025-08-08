@@ -1,23 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pdayal1_mobile/src/feature/screens/today_study_task/widgets/task_level_card.dart';
 
 import '../../../../core/theme/theme_extension/color_pallete.dart';
+import '../models/add_task_model.dart';
+import '../riverpod/completed_task_list_provider.dart';
+import '../riverpod/pending_task_provider.dart';
 
 class TaskCard extends StatelessWidget {
   const TaskCard({
     super.key,
     required this.style,
-    required this.chapterTitle,
+    required this.pendingTaskTitle,
     required this.date,
   });
 
   final TextTheme style;
-  final String chapterTitle;
+  final String pendingTaskTitle;
   final String date;
 
   @override
   Widget build(BuildContext context) {
+    final taskModel = TaskModel(title: pendingTaskTitle, date: date);
+
     return Container(
       decoration: BoxDecoration(
         color: AppColor.softSkyBlue,
@@ -31,13 +37,12 @@ class TaskCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  chapterTitle,
+                  pendingTaskTitle,
                   style: style.bodyLarge?.copyWith(
                     color: AppColor.blackText,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-
                 Text(
                   date,
                   style: style.bodySmall?.copyWith(
@@ -48,22 +53,73 @@ class TaskCard extends StatelessWidget {
               ],
             ),
             SizedBox(height: 16.h),
-            TaskLevelCard(style: style),
-            SizedBox(height: 12.h),
-            TaskLevelCard(
-              style: style,
-              title: 'Medium',
-              color: AppColor.deepYellow,
+
+            // Easy
+            Consumer(
+              builder: (context, ref, _) {
+                return TaskLevelCard(
+                  style: style,
+                  title: 'Easy',
+                  color: AppColor.deepGreen,
+                  onTap: () {
+                    ref.read(completedTaskListProvider.notifier).add(taskModel);
+                    ref.read(pendingTaskListProvider.notifier).remove(taskModel);
+                    debugPrint('Marked as Easy');
+                  },
+                );
+              },
             ),
             SizedBox(height: 12.h),
-            TaskLevelCard(style: style, title: 'Hard', color: AppColor.deepRed),
+
+            // Medium
+            Consumer(
+              builder: (context, ref, _) {
+                return TaskLevelCard(
+                  style: style,
+                  title: 'Medium',
+                  color: AppColor.deepYellow,
+                  onTap: () {
+                    ref.read(completedTaskListProvider.notifier).add(taskModel);
+                    ref.read(pendingTaskListProvider.notifier).remove(taskModel);
+                    debugPrint('Marked as Medium');
+                  },
+                );
+              },
+            ),
             SizedBox(height: 12.h),
-            TaskLevelCard(
-              style: style,
-              title: 'Cancel',
-              color: Colors.transparent,
-              textColor: AppColor.chayan,
-              border: Border.all(color: AppColor.chayan),
+
+            // Hard
+            Consumer(
+              builder: (context, ref, _) {
+                return TaskLevelCard(
+                  style: style,
+                  title: 'Hard',
+                  color: AppColor.deepRed,
+                  onTap: () {
+                    ref.read(completedTaskListProvider.notifier).add(taskModel);
+                    ref.read(pendingTaskListProvider.notifier).remove(taskModel);
+                    debugPrint('Marked as Hard');
+                  },
+                );
+              },
+            ),
+            SizedBox(height: 12.h),
+
+            // Cancel
+            Consumer(
+              builder: (context, ref, _) {
+                return TaskLevelCard(
+                  style: style,
+                  title: 'Cancel',
+                  color: Colors.transparent,
+                  textColor: AppColor.chayan,
+                  border: Border.all(color: AppColor.chayan),
+                  onTap: () {
+                    ref.read(pendingTaskListProvider.notifier).remove(taskModel);
+                    debugPrint('Cancelled');
+                  },
+                );
+              },
             ),
           ],
         ),
@@ -71,3 +127,4 @@ class TaskCard extends StatelessWidget {
     );
   }
 }
+
