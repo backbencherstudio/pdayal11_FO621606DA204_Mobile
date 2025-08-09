@@ -15,7 +15,9 @@ class DayLeftSection extends StatelessWidget {
     required this.title,
     required this.date,
     required this.dayLeft,
-    this.index
+    this.index,
+this.completedTask,
+    this.pendingTask,
   });
 
   final TextTheme style;
@@ -23,6 +25,8 @@ class DayLeftSection extends StatelessWidget {
   final String date;
   final String dayLeft;
   final int? index;
+  final List<Widget>? completedTask;
+  final List<Widget>? pendingTask;
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +72,9 @@ class DayLeftSection extends StatelessWidget {
             ),
             Consumer(
               builder: (_, ref, _) {
-                final borderGradColor = ref.watch(randomBorderColor(index ?? 0));
+                final borderGradColor = ref.watch(
+                  randomBorderColor(index ?? 0),
+                );
                 return Flexible(
                   // child: CommonWidgets.primaryButton(
                   //   title: '$dayLeft days left',

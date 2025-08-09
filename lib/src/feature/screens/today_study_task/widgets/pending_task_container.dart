@@ -7,10 +7,7 @@ import '../../../../core/theme/theme_extension/color_pallete.dart';
 import '../riverpod/pending_task_provider.dart';
 
 class PendingTaskContainer extends StatelessWidget {
-  const PendingTaskContainer({
-    super.key,
-    required this.style,
-  });
+  const PendingTaskContainer({super.key, required this.style});
 
   final TextTheme style;
 
@@ -24,25 +21,25 @@ class PendingTaskContainer extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(16.r),
         child: Consumer(
-          builder: (context,ref,_) {
-            final pendingTaskList = ref.watch(
-              pendingTaskListProvider,
-            );
+          builder: (context, ref, _) {
+            final pendingTaskList = ref.watch(pendingTaskListProvider);
             return Column(
               children: [
                 ...List.generate(pendingTaskList.length, (index) {
                   final item = pendingTaskList[index];
                   return Padding(
                     padding: EdgeInsets.only(bottom: 16.h),
-                    child: TaskCard(style: style,
+                    child: TaskCard(
+                      style: style,
                       pendingTaskTitle: item.title,
-                      date: item.date, difficulty: item.difficulty,
+                      date: item.date,
+                      difficulty: item.difficulty,
                     ),
                   );
                 }),
               ],
             );
-          }
+          },
         ),
       ),
     );
