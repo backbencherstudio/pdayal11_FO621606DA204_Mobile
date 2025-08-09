@@ -148,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       final item = chapterList[index];
                                       return Padding(
                                         padding: EdgeInsets.only(bottom: 10.h),
-                                        child: UpComingTaskCard(chapter: item),
+                                        child: UpComingTaskCard(chapter: item, index: index,),
                                       );
                                     }),
                                   ],

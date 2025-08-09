@@ -5,6 +5,8 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../core/constant/icons.dart';
 import '../../../../core/theme/theme_extension/color_pallete.dart';
 import '../../../common_widgets/common_widgets.dart';
+import '../../../common_widgets/custom_tes_card_state/custom_test_card_state.dart';
+import '../../home_screen/riverpod/select_date_provider.dart';
 
 class DayLeftSection extends StatelessWidget {
   const DayLeftSection({
@@ -13,15 +15,18 @@ class DayLeftSection extends StatelessWidget {
     required this.title,
     required this.date,
     required this.dayLeft,
+    this.index
   });
 
   final TextTheme style;
   final String title;
   final String date;
   final String dayLeft;
+  final int? index;
 
   @override
   Widget build(BuildContext context) {
+    final style = Theme.of(context).textTheme;
     return Column(
       children: [
         Align(
@@ -48,7 +53,7 @@ class DayLeftSection extends StatelessWidget {
                   ),
                   SizedBox(width: 6.w),
                   Consumer(
-                    builder: (context, ref, _) {
+                    builder: (_, ref, _) {
                       // final date = ref.watch(selectedDateProvider);
                       return Text(
                         date,
@@ -62,17 +67,38 @@ class DayLeftSection extends StatelessWidget {
               ),
             ),
             Consumer(
-              builder: (context, ref, _) {
+              builder: (_, ref, _) {
+                final borderGradColor = ref.watch(randomBorderColor(index ?? 0));
                 return Flexible(
-                  child: CommonWidgets.primaryButton(
-                    title: '$dayLeft days left',
-                    radius: 16.r,
-                    onTap: () {},
-                    isIconOn: false,
-                    width: 94,
-                    textStyle: style.bodySmall?.copyWith(
-                      color: AppColor.white,
-                      fontWeight: FontWeight.w400,
+                  // child: CommonWidgets.primaryButton(
+                  //   title: '$dayLeft days left',
+                  //   radius: 16.r,
+                  //   onTap: () {},
+                  //   isIconOn: false,
+                  //   width: 94.w,
+                  //   textStyle: style.bodySmall?.copyWith(
+                  //     color: AppColor.white,
+                  //     fontWeight: FontWeight.w400,
+                  //   ),
+                  // ),
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: 90.w,
+                    padding: EdgeInsets.all(12.r),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16.r),
+                      gradient: LinearGradient(
+                        colors: borderGradColor,
+                        begin: Alignment.centerLeft,
+                        end: Alignment.topRight,
+                      ),
+                    ),
+                    child: Text(
+                      '$dayLeft days left',
+                      style: style.bodySmall!.copyWith(
+                        color: AppColor.white,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   ),
                 );
