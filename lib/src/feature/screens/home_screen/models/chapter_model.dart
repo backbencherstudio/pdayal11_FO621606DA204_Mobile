@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class Chapter {
@@ -14,8 +15,8 @@ class Chapter {
     required this.date,
     required this.chapterId,
     required this.topics,
-  }) : topicsCount = _getTopicCount(topics),
-       daysLeft = _calculateDaysLeft(date);
+  })  : topicsCount = _getTopicCount(topics),
+        daysLeft = _calculateDaysLeft(date);
 
   static int _getTopicCount(String topics) {
     return topics.isEmpty ? 0 : topics.split(',').length;
@@ -26,13 +27,16 @@ class Chapter {
     DateTime chapterDate;
 
     try {
-      chapterDate = format.parse(date);
+      chapterDate = format.parseStrict(date);
     } catch (e) {
       debugPrint("Invalid date format: $date");
       return 0;
     }
-    DateTime today = DateTime.now();
-    Duration difference = chapterDate.difference(today);
-    return difference.inDays;
+
+    // time part remove kore difference nichi
+    final today = DateUtils.dateOnly(DateTime.now());
+    final target = DateUtils.dateOnly(chapterDate);
+
+    return target.difference(today).inDays;
   }
 }
