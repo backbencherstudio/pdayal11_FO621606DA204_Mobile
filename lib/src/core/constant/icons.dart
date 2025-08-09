@@ -33,19 +33,10 @@ class AppIcons {
   static const String location = '$home/location.svg';
   static const String bell = "$home/bell.svg";
   static const String backButton = "$home/back.svg";
-  static const String googleLogo = "$iconPath/google.svg";
 
-  static const String successful = "$iconPath/successful.svg";
-  static const String camera = "$iconPath/camera.svg";
-
-  static const String edit = "$iconPath/edit.svg";
-  static const String call = "$iconPath/call.svg";
-  static const String city = "$iconPath/city.svg";
-  static const String help = "$iconPath/help.svg";
-  static const String lock = "$iconPath/lock.svg";
-  static const String notificationOutline =
-      "$iconPath/notification_outline.svg";
-  static const String world = "$iconPath/world.svg";
-  static const String logOut = "$iconPath/logout.svg";
-  static const String imagePicker = "$iconPath/image_picker.svg";
+  //Custom Test Card
+  static const String bookIcon = "$iconPath/book.svg";
+  static const String calenderIcon = "$iconPath/calender.svg";
+  static const String growIcon = "$iconPath/grow.svg";
+  static const String partyIcon = "$iconPath/party.svg";
 }
