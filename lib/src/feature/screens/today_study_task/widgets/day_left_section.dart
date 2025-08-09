@@ -4,7 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../../core/constant/icons.dart';
 import '../../../../core/theme/theme_extension/color_pallete.dart';
+import '../../../common_widgets/common_widgets.dart';
 import '../../../common_widgets/custom_tes_card_state/custom_test_card_state.dart';
+import '../../home_screen/riverpod/select_date_provider.dart';
 
 class DayLeftSection extends StatelessWidget {
   const DayLeftSection({
@@ -13,7 +15,9 @@ class DayLeftSection extends StatelessWidget {
     required this.title,
     required this.date,
     required this.dayLeft,
-    this.index
+    this.index,
+this.completedTask,
+    this.pendingTask,
   });
 
   final TextTheme style;
@@ -21,6 +25,8 @@ class DayLeftSection extends StatelessWidget {
   final String date;
   final String dayLeft;
   final int? index;
+  final List<Widget>? completedTask;
+  final List<Widget>? pendingTask;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +72,9 @@ class DayLeftSection extends StatelessWidget {
             ),
             Consumer(
               builder: (_, ref, _) {
-                final borderGradColor = ref.watch(randomBorderColor(index ?? 0));
+                final borderGradColor = ref.watch(
+                  randomBorderColor(index ?? 0),
+                );
                 return Flexible(
                   // child: CommonWidgets.primaryButton(
                   //   title: '$dayLeft days left',
@@ -81,7 +89,7 @@ class DayLeftSection extends StatelessWidget {
                   // ),
                   child: Container(
                     alignment: Alignment.center,
-                    width: 84.w,
+                    width: 90.w,
                     padding: EdgeInsets.all(12.r),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16.r),
@@ -92,7 +100,7 @@ class DayLeftSection extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      title,
+                      '$dayLeft days left',
                       style: style.bodySmall!.copyWith(
                         color: AppColor.white,
                         fontWeight: FontWeight.w400,

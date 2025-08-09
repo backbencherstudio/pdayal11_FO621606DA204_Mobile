@@ -40,13 +40,24 @@ class _TodayStudyTasksScreenState extends State<TodayStudyTasksScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                "Today's Study Tasks",
-                style: style.titleMedium?.copyWith(
-                  color: AppColor.blackText,
-                  fontWeight: FontWeight.w500,
-                ),
+              Row(
+                children: [
+                  GestureDetector(
+                      onTap: (){
+                        Navigator.pop(context);
+                      },
+                      child: Icon(Icons.arrow_back_ios_new_rounded, size: 20.sp)),
+                  SizedBox(width: 60.w),
+                  Text(
+                    "Today's Study Tasks",
+                    style: style.titleMedium?.copyWith(
+                      color: AppColor.blackText,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
               ),
+
               SizedBox(height: 20.h),
               Expanded(
                 child: SingleChildScrollView(

@@ -24,15 +24,13 @@ final randomBorderColor = Provider.family<List<Color>, int>((ref, index){
 
 final randomBackgroundColor = Provider.family<List<Color>, int>((ref, index){
   final randomColorPalette = [
+    [Color(0xFFEAEDF7), Color(0xFFF0E6F2)],
     [
-      Color(0xFF385DD8).withValues(alpha: 0.08),
-      Color(0xFF790497).withValues(alpha: 0.08),
+      Color(0xFFE9EEF6),
+      Color(0xFFE6F1E8)
     ], [
-      Color(0xFF3866D8).withValues(alpha: 0.08),
-      Color(0xFF04971F).withValues(alpha: 0.08),
-    ], [
-      Color(0xFFD83838).withValues(alpha: 0.08),
-      Color(0xFFFFCC00).withValues(alpha: 0.08),
+      Color(0xFFF7EAEA),
+      Color(0xFFFAF6E6)
     ]
   ];
   return randomColorPalette[ref.watch(generateRandom(index))];

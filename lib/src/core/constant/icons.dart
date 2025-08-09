@@ -2,14 +2,11 @@ class AppIcons {
   static const String iconPath = 'assets/icons';
   static const String plus = "$iconPath/plus.svg";
   static const String cancel = "$iconPath/remove.svg";
-  static const String calender = "$iconPath/calender.svg";
+  static const String calender = "$iconPath/calenderSvg.svg";
   static const String customBook = "$iconPath/custom_books.svg";
   static const String progress = "$iconPath/progress.svg";
   static const String strong = "$iconPath/strong.svg";
   static const String fire = "$iconPath/fire.svg";
-
-
-
 
 
 
@@ -35,8 +32,8 @@ class AppIcons {
   static const String backButton = "$home/back.svg";
 
   //Custom Test Card
-  static const String bookIcon = "$iconPath/book.svg";
-  static const String calenderIcon = "$iconPath/calender.svg";
-  static const String growIcon = "$iconPath/grow.svg";
-  static const String partyIcon = "$iconPath/party.svg";
+  // static const String bookIcon = "$iconPath/book.svg";
+  // static const String calenderIcon = "$iconPath/calender.svg";
+  // static const String growIcon = "$iconPath/grow.svg";
+  // static const String partyIcon = "$iconPath/party.svg";
 }
