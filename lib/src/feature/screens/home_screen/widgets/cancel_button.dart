@@ -8,23 +8,28 @@ class CancelButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 144.w,
-      padding: EdgeInsets.all(2.w),
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xff3866D8), Color(0xff04971F)],
-        ),
-        borderRadius: BorderRadius.circular(8.r),
-      ),
+    return GestureDetector(
+      onTap: (){
+        Navigator.pop(context);
+      },
       child: Container(
         width: 144.w,
-        padding: EdgeInsets.symmetric(horizontal: 26.w, vertical: 13.h),
+        padding: EdgeInsets.all(2.w),
         decoration: BoxDecoration(
-          color: AppColor.white,
-          borderRadius: BorderRadius.circular(6.r),
+          gradient: const LinearGradient(
+            colors: [Color(0xff3866D8), Color(0xff04971F)],
+          ),
+          borderRadius: BorderRadius.circular(8.r),
         ),
-        child:  Text(textAlign: TextAlign.center,'Cancel'),
+        child: Container(
+          width: 144.w,
+          padding: EdgeInsets.symmetric(horizontal: 26.w, vertical: 13.h),
+          decoration: BoxDecoration(
+            color: AppColor.white,
+            borderRadius: BorderRadius.circular(6.r),
+          ),
+          child:  Text(textAlign: TextAlign.center,'Cancel'),
+        ),
       ),
     );
   }

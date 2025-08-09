@@ -88,13 +88,13 @@ class _TodayStudyTasksScreenState extends State<TodayStudyTasksScreen> {
                             ),
                             SizedBox(height: 24.h),
                             Consumer(
-                              builder: (context,ref,_) {
+                              builder: (context, ref, _) {
                                 List<Chapter> chapterList = ref.watch(
                                   chapterListProvider,
                                 );
                                 final chapterId = ref.watch(selectedChapterId);
                                 Chapter chapter = chapterList.firstWhere(
-                                      (chapters) => chapters.chapterId == chapterId,
+                                  (chapters) => chapters.chapterId == chapterId,
                                 );
                                 return TopicSection(
                                   style: style,
@@ -102,7 +102,7 @@ class _TodayStudyTasksScreenState extends State<TodayStudyTasksScreen> {
                                   topicBtn: chapter.topics,
                                   topicsCount: chapter.topicsCount.toString(),
                                 );
-                              }
+                              },
                             ),
                             SizedBox(height: 12.h),
                             Divider(
@@ -158,7 +158,9 @@ class _TodayStudyTasksScreenState extends State<TodayStudyTasksScreen> {
                       // SizedBox(height: 20.h),
                       Consumer(
                         builder: (context, ref, _) {
-                          final completedList = ref.watch(completedTaskListProvider);
+                          final completedList = ref.watch(
+                            completedTaskListProvider,
+                          );
                           return Text(
                             'Completed Tasks (${completedList.length})',
                             style: style.titleMedium?.copyWith(
