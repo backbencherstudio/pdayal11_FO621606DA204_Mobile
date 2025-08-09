@@ -3,8 +3,7 @@ import 'dart:ui';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final generateRandom = Provider.family<int, int>((ref, index){
-  final random = Random();
-  return random.nextInt(3);
+  return index % 3;
 });
 
 final randomBorderColor = Provider.family<List<Color>, int>((ref, index){
