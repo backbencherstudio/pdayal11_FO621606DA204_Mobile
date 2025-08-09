@@ -100,7 +100,7 @@ class _AddNewTaskState extends State<AddNewTask> {
 
                             ref
                                 .read(pendingTaskListProvider.notifier)
-                                .add(TaskModel(title: title, date: date));
+                                .add(TaskModel(title: title, date: date , difficulty: ''));
                             ref.read(showPendingTasks.notifier).state = 1;
                             titleController.clear();
                             widget.addTaskDateTEController.clear();

@@ -36,7 +36,7 @@ class PendingTaskContainer extends StatelessWidget {
                     padding: EdgeInsets.only(bottom: 16.h),
                     child: TaskCard(style: style,
                       pendingTaskTitle: item.title,
-                      date: item.date,
+                      date: item.date, difficulty: item.difficulty,
                     ),
                   );
                 }),

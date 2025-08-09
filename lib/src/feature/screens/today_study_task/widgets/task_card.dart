@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pdayal1_mobile/src/feature/screens/today_study_task/widgets/task_level_card.dart';
-
 import '../../../../core/theme/theme_extension/color_pallete.dart';
 import '../models/add_task_model.dart';
 import '../riverpod/completed_task_list_provider.dart';
@@ -14,15 +13,21 @@ class TaskCard extends StatelessWidget {
     required this.style,
     required this.pendingTaskTitle,
     required this.date,
+    required this.difficulty,
   });
 
   final TextTheme style;
   final String pendingTaskTitle;
   final String date;
+  final String difficulty;
 
   @override
   Widget build(BuildContext context) {
-    final taskModel = TaskModel(title: pendingTaskTitle, date: date);
+    final taskModel = TaskModel(
+      title: pendingTaskTitle,
+      date: date,
+      difficulty: difficulty,
+    );
 
     return Container(
       decoration: BoxDecoration(
@@ -62,9 +67,24 @@ class TaskCard extends StatelessWidget {
                   title: 'Easy',
                   color: AppColor.deepGreen,
                   onTap: () {
-                    ref.read(completedTaskListProvider.notifier).add(taskModel);
-                    ref.read(pendingTaskListProvider.notifier).remove(taskModel);
-                    debugPrint('Marked as Easy');
+                    ref
+                        .read(completedTaskListProvider.notifier)
+                        .add(
+                          TaskModel(
+                            title: pendingTaskTitle,
+                            date: date,
+                            difficulty: 'Easy',
+                          ),
+                        );
+                    ref
+                        .read(pendingTaskListProvider.notifier)
+                        .remove(
+                          TaskModel(
+                            title: pendingTaskTitle,
+                            date: date,
+                            difficulty: 'Easy',
+                          ),
+                        );
                   },
                 );
               },
@@ -79,9 +99,24 @@ class TaskCard extends StatelessWidget {
                   title: 'Medium',
                   color: AppColor.deepYellow,
                   onTap: () {
-                    ref.read(completedTaskListProvider.notifier).add(taskModel);
-                    ref.read(pendingTaskListProvider.notifier).remove(taskModel);
-                    debugPrint('Marked as Medium');
+                    ref
+                        .read(completedTaskListProvider.notifier)
+                        .add(
+                          TaskModel(
+                            title: pendingTaskTitle,
+                            date: date,
+                            difficulty: 'Medium',
+                          ),
+                        );
+                    ref
+                        .read(pendingTaskListProvider.notifier)
+                        .remove(
+                          TaskModel(
+                            title: pendingTaskTitle,
+                            date: date,
+                            difficulty: 'Medium',
+                          ),
+                        );
                   },
                 );
               },
@@ -96,9 +131,24 @@ class TaskCard extends StatelessWidget {
                   title: 'Hard',
                   color: AppColor.deepRed,
                   onTap: () {
-                    ref.read(completedTaskListProvider.notifier).add(taskModel);
-                    ref.read(pendingTaskListProvider.notifier).remove(taskModel);
-                    debugPrint('Marked as Hard');
+                    ref
+                        .read(completedTaskListProvider.notifier)
+                        .add(
+                          TaskModel(
+                            title: pendingTaskTitle,
+                            date: date,
+                            difficulty: 'Hard',
+                          ),
+                        );
+                    ref
+                        .read(pendingTaskListProvider.notifier)
+                        .remove(
+                          TaskModel(
+                            title: pendingTaskTitle,
+                            date: date,
+                            difficulty: 'Hard',
+                          ),
+                        );
                   },
                 );
               },
@@ -115,7 +165,9 @@ class TaskCard extends StatelessWidget {
                   textColor: AppColor.chayan,
                   border: Border.all(color: AppColor.chayan),
                   onTap: () {
-                    ref.read(pendingTaskListProvider.notifier).remove(taskModel);
+                    ref
+                        .read(pendingTaskListProvider.notifier)
+                        .remove(taskModel);
                     debugPrint('Cancelled');
                   },
                 );
@@ -127,4 +179,3 @@ class TaskCard extends StatelessWidget {
     );
   }
 }
-
