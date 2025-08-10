@@ -10,7 +10,7 @@ import 'package:pdayal1_mobile/src/feature/common_widgets/common_widgets.dart';
 import 'package:pdayal1_mobile/src/feature/screens/home_screen/widgets/title_text.dart';
 import '../../../../core/theme/theme_extension/color_pallete.dart';
 import '../models/chapter_model.dart';
-import '../riverpod/show_today_tasks_provider.dart';
+import '../riverpod/chapter_id_provider.dart';
 import 'cancel_button.dart';
 import 'date_picker.dart';
 

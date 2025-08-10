@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pdayal1_mobile/src/feature/screens/home_screen/riverpod/chapter_id_provider.dart';
 import 'package:pdayal1_mobile/src/feature/screens/today_study_task/riverpod/pending_task_provider.dart';
 import '../../../../core/constant/icons.dart';
 import '../../../../core/theme/theme_extension/color_pallete.dart';
@@ -89,6 +90,7 @@ class ChapterCard extends StatelessWidget {
           Consumer(
             builder: (context,ref,_) {
               final isCompleted = ref.watch(pendingTaskListProvider);
+              final id = ref.watch(selectedChapterId);
               return CommonWidgets.primaryButton(
                 title: 'Mark as Complete',
                 radius: 8.r,
@@ -97,15 +99,7 @@ class ChapterCard extends StatelessWidget {
                       .read(completedTaskListProvider.notifier)
                       .add(
                     TaskModel(
-                      title: pendingTaskTitle!,
-                      date: date,
-                      difficulty: 'Easy',
-                    ),
-                  );
-                  ref
-                      .read(pendingTaskListProvider.notifier)
-                      .remove(
-                    TaskModel(
+                      chapterID: id,
                       title: pendingTaskTitle!,
                       date: date,
                       difficulty: 'Easy',

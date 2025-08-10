@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../../today_study_task/models/add_task_model.dart';
 
 class Chapter {
   final String title;
@@ -8,12 +9,14 @@ class Chapter {
   final String topics;
   late final int topicsCount;
   late final int daysLeft;
+  late final List<TaskModel>? tasks;
 
   Chapter({
     required this.title,
     required this.date,
     required this.chapterId,
     required this.topics,
+    this.tasks
   })  : topicsCount = _getTopicCount(topics),
         daysLeft = _calculateDaysLeft(date);
 
