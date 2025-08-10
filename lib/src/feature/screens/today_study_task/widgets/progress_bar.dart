@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../../core/constant/icons.dart';
 import '../../../../core/theme/theme_extension/color_pallete.dart';
+import '../../home_screen/riverpod/chapter_id_provider.dart';
 import '../riverpod/progress_provider.dart';
 
 class ProgressBar extends StatelessWidget {

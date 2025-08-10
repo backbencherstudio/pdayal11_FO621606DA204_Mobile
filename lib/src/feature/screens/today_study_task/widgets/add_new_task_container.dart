@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pdayal1_mobile/src/feature/screens/home_screen/riverpod/chapter_id_provider.dart';
 import 'package:pdayal1_mobile/src/feature/screens/today_study_task/models/add_task_model.dart';
 
 import '../../../../core/theme/theme_extension/color_pallete.dart';
 import '../../../common_widgets/common_widgets.dart';
+import '../../home_screen/models/chapter_model.dart';
+import '../../home_screen/riverpod/chapter_manage_provider.dart';
 import '../riverpod/pending_task_provider.dart';
 import 'add_task_date_picker.dart';
 
@@ -95,15 +98,42 @@ class _AddNewTaskState extends State<AddNewTask> {
                         onTap: () {
                           if (formKey.currentState!.validate()) {
                             final title = titleController.text.trim();
-                            final date =
-                                widget.addTaskDateTEController.text.trim();
+                            final date = widget.addTaskDateTEController.text.trim();
 
-                            ref
-                                .read(pendingTaskListProvider.notifier)
-                                .add(TaskModel(title: title, date: date , difficulty: ''));
-                            ref.read(showPendingTasks.notifier).state = 1;
+                            // Ensure chapterId is available before proceeding
+                            final chapterId = ref.watch(selectedChapterId);
+                            if (chapterId.isEmpty) {
+                              // Handle missing chapterId case
+                              debugPrint('Chapter ID is missing');
+                              return;
+                            }
+
+                            final task = TaskModel(
+                              chapterID: chapterId,
+                              title: title,
+                              date: date,
+                              difficulty: '', // Add default difficulty if necessary
+                            );
+
+                            // Add task to chapter model (if needed)
+                            List<Chapter> chapterList = ref.watch(chapterListProvider);
+                            final currentChapter = ref.read(chapterProvider.notifier).getChapter(chapterId);
+                            if (currentChapter != null) {
+                              currentChapter.tasks?.add(task);
+                              ref.read(chapterProvider.notifier).addChapter(currentChapter);
+                            }
+
+                            // Add the task to the pending task list
+                            ref.read(pendingTaskListProvider.notifier).add(task);
+
+                            // Clear inputs after adding the task
                             titleController.clear();
                             widget.addTaskDateTEController.clear();
+
+                            // Optional: Trigger UI update for pending tasks
+                            // ref.read(showPendingTasks.notifier).state = 1; // Uncomment if needed
+
+                            debugPrint('Task added: $task');
                           }
                         },
                         isIconOn: true,

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pdayal1_mobile/src/core/constant/images.dart';
-import 'package:pdayal1_mobile/src/core/theme/theme_extension/color_pallete.dart';
-import 'package:pdayal1_mobile/src/feature/screens/home_screen/riverpod/show_today_tasks_provider.dart';
+import '../../../../core/constant/images.dart';
+import '../../../../core/theme/theme_extension/color_pallete.dart';
 import '../../../common_widgets/common_widgets.dart';
 import '../../today_study_task/riverpod/pending_task_provider.dart';
+import '../riverpod/chapter_id_provider.dart';
 import '../widgets/chapter_card.dart';
 import '../widgets/profile_section.dart';
 import '../widgets/task_container.dart';
@@ -24,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
     final Shader textGradient = CommonWidgets.textGradient();
+
     return Scaffold(
       backgroundColor: AppColor.homeBg,
       body: SafeArea(
@@ -39,8 +40,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: EdgeInsets.symmetric(horizontal: 20.w),
                   child: Consumer(
                     builder: (context, ref, _) {
-                      final selectedContainer = ref.watch(showPendingTasks);
+                      final selectedContainer = ref.watch(pendingTaskListProvider);
                       final selectedUpcoming = ref.watch(showTodayTasks);
+
+                      final chapterList = ref.watch(chapterListProvider);
+
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -62,6 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           SizedBox(height: 16.h),
 
+                          // TaskContainer for Today's Study Tasks
                           if (selectedContainer == 0)
                             TaskContainer(
                               picture: Image.asset(
@@ -75,33 +80,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                 fontWeight: FontWeight.w500,
                               ),
                               subtitle:
-                                  'No study tasks for today. Great job\nstaying on track!',
+                              'No study tasks for today. Great job\nstaying on track!',
                               subtitleStyle: style.bodyMedium!.copyWith(
                                 color: AppColor.profileTextColor,
                               ),
                             )
                           else
-                            Consumer(
-                              builder: (context, ref, _) {
-                                final chapterList = ref.watch(
-                                  pendingTaskListProvider,
-                                );
-                                return Column(
-                                  children: [
-                                    ...List.generate(chapterList.length, (
-                                      index,
-                                    ) {
-                                      final item = chapterList[index];
-                                      return ChapterCard(
-                                        style: style,
-                                        chapterTitle: item.title,
-                                        date: item.date,
-                                      );
-                                    }),
-                                  ],
-                                );
-                              },
-                            ),
+                          // Display Chapter Cards
+                            ...List.generate(chapterList.length, (index) {
+                              final item = chapterList[index];
+                              return ChapterCard(
+                                style: style,
+                                chapterTitle: item.title,
+                                date: item.date,
+                              );
+                            }),
 
                           SizedBox(height: 22.h),
                           Align(
@@ -116,6 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           SizedBox(height: 16.h),
 
+                          // TaskContainer for Upcoming Tests
                           if (selectedUpcoming == 0)
                             TaskContainer(
                               picture: Image.asset(
@@ -129,32 +123,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                 fontWeight: FontWeight.w500,
                               ),
                               subtitle:
-                                  'Add your first test to get started with\nsmart study planning!',
+                              'Add your first test to get started with\nsmart study planning!',
                               subtitleStyle: style.bodyMedium!.copyWith(
                                 color: AppColor.profileTextColor,
                               ),
                             )
                           else
-                            Consumer(
-                              builder: (context, ref, _) {
-                                final chapterList = ref.watch(
-                                  chapterListProvider,
-                                );
-                                return Column(
-                                  children: [
-                                    ...List.generate(chapterList.length, (
-                                      index,
-                                    ) {
-                                      final item = chapterList[index];
-                                      return Padding(
-                                        padding: EdgeInsets.only(bottom: 10.h),
-                                        child: UpComingTaskCard(chapter: item, index: index,),
-                                      );
-                                    }),
-                                  ],
-                                );
-                              },
-                            ),
+                          // Display Upcoming Task Cards
+                            ...List.generate(chapterList.length, (index) {
+                              final item = chapterList[index];
+                              return Padding(
+                                padding: EdgeInsets.only(bottom: 10.h),
+                                child: UpComingTaskCard(chapter: item, index: index),
+                              );
+                            }),
                         ],
                       );
                     },

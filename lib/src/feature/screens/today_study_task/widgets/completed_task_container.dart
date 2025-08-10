@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/theme/theme_extension/color_pallete.dart';
+import '../../home_screen/riverpod/chapter_id_provider.dart';
 import '../presentation/today_study_tasks_screen.dart';
 import '../riverpod/completed_task_list_provider.dart';
 import 'completed_task_card.dart';
@@ -20,6 +21,14 @@ class CompletedTaskContainer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final completedTasks = ref.watch(completedTaskListProvider);
+    final chapterId = ref.watch(selectedChapterId);
+    final completedTaskList = ref.watch(
+      completedTaskListProvider,
+    );
+    final filteredCompletedTasks =
+    completedTaskList
+        .where((task) => task.chapterID == chapterId)
+        .toList();
 
     return Container(
       decoration: BoxDecoration(
@@ -29,7 +38,7 @@ class CompletedTaskContainer extends ConsumerWidget {
       child: Padding(
         padding: EdgeInsets.all(16.r),
         child: Column(
-          children: completedTasks.map((task) {
+          children: filteredCompletedTasks.map((task) {
             return Padding(
               padding: EdgeInsets.only(bottom: 16.h),
               child: CompletedTaskCard(

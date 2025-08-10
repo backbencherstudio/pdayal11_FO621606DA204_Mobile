@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pdayal1_mobile/src/core/theme/theme_extension/color_pallete.dart';
-import 'package:pdayal1_mobile/src/feature/screens/home_screen/riverpod/show_today_tasks_provider.dart';
+import 'package:pdayal1_mobile/src/feature/screens/home_screen/riverpod/chapter_id_provider.dart';
 import 'package:pdayal1_mobile/src/feature/screens/today_study_task/riverpod/progress_provider.dart';
 import '../../home_screen/models/chapter_model.dart';
 import '../riverpod/completed_task_list_provider.dart';
@@ -43,10 +43,11 @@ class _TodayStudyTasksScreenState extends State<TodayStudyTasksScreen> {
               Row(
                 children: [
                   GestureDetector(
-                      onTap: (){
-                        Navigator.pop(context);
-                      },
-                      child: Icon(Icons.arrow_back_ios_new_rounded, size: 20.sp)),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Icon(Icons.arrow_back_ios_new_rounded, size: 20.sp),
+                  ),
                   SizedBox(width: 60.w),
                   Text(
                     "Today's Study Tasks",
@@ -127,7 +128,7 @@ class _TodayStudyTasksScreenState extends State<TodayStudyTasksScreen> {
                             Consumer(
                               builder: (context, ref, _) {
                                 final progress =
-                                    ref.watch(progressProvider.notifier).state;
+                                    ref.watch(progressProvider);
                                 return Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
@@ -152,11 +153,21 @@ class _TodayStudyTasksScreenState extends State<TodayStudyTasksScreen> {
                       SizedBox(height: 20.h),
                       Consumer(
                         builder: (context, ref, _) {
-                          final chapterList = ref.watch(
+                          // Get the selected chapterId
+                          final chapterId = ref.watch(selectedChapterId);
+
+                          // Get all pending tasks
+                          final pendingTaskList = ref.watch(
                             pendingTaskListProvider,
                           );
+
+                          // Filter tasks by chapterId
+                          final filteredTasks =
+                              pendingTaskList
+                                  .where((task) => task.chapterID == chapterId)
+                                  .toList();
                           return Text(
-                            'Pending Tasks (${chapterList.length})',
+                            'Pending Tasks (${filteredTasks.length})',
                             style: style.titleMedium?.copyWith(
                               color: AppColor.blackText,
                               fontWeight: FontWeight.w500,
@@ -172,8 +183,19 @@ class _TodayStudyTasksScreenState extends State<TodayStudyTasksScreen> {
                           final completedList = ref.watch(
                             completedTaskListProvider,
                           );
+                          // Get the selected chapterId
+                          final chapterId = ref.watch(selectedChapterId);
+                          // Get all pending tasks
+                          final completedTaskList = ref.watch(
+                            completedTaskListProvider,
+                          );
+                          // Filter tasks by chapterId
+                          final filteredCompletedTasks =
+                              completedTaskList
+                                  .where((task) => task.chapterID == chapterId)
+                                  .toList();
                           return Text(
-                            'Completed Tasks (${completedList.length})',
+                            'Completed Tasks (${filteredCompletedTasks.length})',
                             style: style.titleMedium?.copyWith(
                               color: AppColor.blackText,
                               fontWeight: FontWeight.w500,
