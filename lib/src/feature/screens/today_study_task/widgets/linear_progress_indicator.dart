@@ -9,7 +9,7 @@ class GradientProgressBar extends StatelessWidget {
     super.key,
     required this.progress,
     this.borderRadius = 8.0,
-    this.colors
+    this.colors,
   });
 
   @override

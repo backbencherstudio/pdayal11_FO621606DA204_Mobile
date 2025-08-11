@@ -4,12 +4,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../../core/constant/icons.dart';
 import '../../../../core/theme/theme_extension/color_pallete.dart';
-import '../riverpod/progress_provider.dart';
 
 class ProgressBar extends StatelessWidget {
-  const ProgressBar({super.key, required this.style});
+  const ProgressBar({super.key,
+    required this.style, required this.progress
+  }
+      );
 
   final TextTheme style;
+  final double progress;
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +37,9 @@ class ProgressBar extends StatelessWidget {
         Spacer(),
         Consumer(
           builder: (context, ref, _) {
-            final progress = ref.watch(progressProvider.notifier).state;
             return Expanded(
               child: Text(
-                '${(progress * 100).toInt()}%',
+                '$progress%',
                 textAlign: TextAlign.end,
                 style: style.bodySmall?.copyWith(
                   color: AppColor.profileTextColor,

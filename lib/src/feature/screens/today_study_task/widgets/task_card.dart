@@ -14,20 +14,17 @@ class TaskCard extends StatelessWidget {
     required this.pendingTaskTitle,
     required this.date,
     required this.difficulty,
+    required this.taskId
   });
 
   final TextTheme style;
   final String pendingTaskTitle;
   final String date;
   final String difficulty;
+  final String taskId;
 
   @override
   Widget build(BuildContext context) {
-    final taskModel = TaskModel(
-      title: pendingTaskTitle,
-      date: date,
-      difficulty: difficulty,
-    );
 
     return Container(
       decoration: BoxDecoration(
@@ -60,119 +57,38 @@ class TaskCard extends StatelessWidget {
             SizedBox(height: 16.h),
 
             // Easy
-            Consumer(
-              builder: (context, ref, _) {
-                return TaskLevelCard(
-                  style: style,
-                  title: 'Easy',
-                  color: AppColor.deepGreen,
-                  onTap: () {
-                    ref
-                        .read(completedTaskListProvider.notifier)
-                        .add(
-                          TaskModel(
-                            title: pendingTaskTitle,
-                            date: date,
-                            difficulty: 'Easy',
-                          ),
-                        );
-                    ref
-                        .read(pendingTaskListProvider.notifier)
-                        .remove(
-                          TaskModel(
-                            title: pendingTaskTitle,
-                            date: date,
-                            difficulty: 'Easy',
-                          ),
-                        );
-                  },
-                );
-              },
+            TaskLevelCard(
+                style: style,
+              title: "Easy",
+              color: AppColor.deepGreen,
             ),
             SizedBox(height: 12.h),
 
             // Medium
-            Consumer(
-              builder: (context, ref, _) {
-                return TaskLevelCard(
-                  style: style,
-                  title: 'Medium',
-                  color: AppColor.deepYellow,
-                  onTap: () {
-                    ref
-                        .read(completedTaskListProvider.notifier)
-                        .add(
-                          TaskModel(
-                            title: pendingTaskTitle,
-                            date: date,
-                            difficulty: 'Medium',
-                          ),
-                        );
-                    ref
-                        .read(pendingTaskListProvider.notifier)
-                        .remove(
-                          TaskModel(
-                            title: pendingTaskTitle,
-                            date: date,
-                            difficulty: 'Medium',
-                          ),
-                        );
-                  },
-                );
-              },
+            TaskLevelCard(
+              style: style,
+              title: "Medium",
+              color: AppColor.deepYellow,
             ),
             SizedBox(height: 12.h),
 
             // Hard
-            Consumer(
-              builder: (context, ref, _) {
-                return TaskLevelCard(
-                  style: style,
-                  title: 'Hard',
-                  color: AppColor.deepRed,
-                  onTap: () {
-                    ref
-                        .read(completedTaskListProvider.notifier)
-                        .add(
-                          TaskModel(
-                            title: pendingTaskTitle,
-                            date: date,
-                            difficulty: 'Hard',
-                          ),
-                        );
-                    ref
-                        .read(pendingTaskListProvider.notifier)
-                        .remove(
-                          TaskModel(
-                            title: pendingTaskTitle,
-                            date: date,
-                            difficulty: 'Hard',
-                          ),
-                        );
-                  },
-                );
-              },
+            TaskLevelCard(
+              style: style,
+              title: "Hard",
+              color: AppColor.deepRed,
             ),
             SizedBox(height: 12.h),
 
             // Cancel
-            Consumer(
-              builder: (context, ref, _) {
-                return TaskLevelCard(
-                  style: style,
-                  title: 'Cancel',
-                  color: Colors.transparent,
-                  textColor: AppColor.chayan,
-                  border: Border.all(color: AppColor.chayan),
-                  onTap: () {
-                    ref
-                        .read(pendingTaskListProvider.notifier)
-                        .remove(taskModel);
-                    debugPrint('Cancelled');
-                  },
-                );
-              },
-            ),
+        TaskLevelCard(
+          style: style,
+          title: "Cancel",
+          color: Colors.transparent,
+          textColor: AppColor.chayan,
+          border: Border.all(color: AppColor.chayan
+          ),
+        ),
           ],
         ),
       ),

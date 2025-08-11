@@ -4,9 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../../core/constant/icons.dart';
 import '../../../../core/theme/theme_extension/color_pallete.dart';
-import '../../../common_widgets/common_widgets.dart';
 import '../../../common_widgets/custom_tes_card_state/custom_test_card_state.dart';
-import '../../home_screen/riverpod/select_date_provider.dart';
 
 class DayLeftSection extends StatelessWidget {
   const DayLeftSection({
@@ -16,7 +14,7 @@ class DayLeftSection extends StatelessWidget {
     required this.date,
     required this.dayLeft,
     this.index,
-this.completedTask,
+    this.completedTask,
     this.pendingTask,
   });
 

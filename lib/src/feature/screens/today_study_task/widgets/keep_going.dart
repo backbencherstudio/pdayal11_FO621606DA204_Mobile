@@ -3,9 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pdayal1_mobile/src/core/constant/images.dart';
+import 'package:pdayal1_mobile/src/feature/screens/home_screen/riverpod/show_today_tasks_provider.dart';
 
 import '../../../../core/constant/icons.dart';
 import '../../../../core/theme/theme_extension/color_pallete.dart';
+import '../../home_screen/models/chapter_model.dart';
 import '../riverpod/progress_provider.dart';
 
 class KeepGoing extends StatelessWidget {
@@ -17,9 +19,15 @@ class KeepGoing extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, _) {
-        final progress = ref.watch(progressProvider.notifier).state;
+        List<Chapter> chapterList = ref.watch(
+          chapterListProvider,
+        );
+        final chapterId = ref.watch(selectedChapterId);
+        Chapter chapter = chapterList.firstWhere(
+              (chapters) => chapters.chapterId == chapterId,
+        );
 
-        final isCompleted = progress >= 1;
+        final isCompleted = ref.watch(progressProvider(chapter.chapterId).notifier).state >= 1;
         final leftText = isCompleted ? 'All Done' : 'Keep Going!';
         final rightText = isCompleted ? 'Excellent!' : 'Needs Attention';
         return Row(

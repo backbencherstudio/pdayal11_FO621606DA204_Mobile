@@ -20,9 +20,10 @@ class UpComingTaskCard extends ConsumerWidget {
   final Chapter? chapter;
   final int? index;
 
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    TextEditingController addTaskDateTEController = TextEditingController();
+    //TextEditingController addTaskDateTEController = TextEditingController();
     final style = Theme.of(context).textTheme;
     //
     // return Container(
@@ -98,6 +99,7 @@ class UpComingTaskCard extends ConsumerWidget {
     //       );
     final backGradColor = ref.watch(randomBackgroundColor(index ?? 0));
     final borderGradColor = ref.watch(randomBorderColor(index ?? 0));
+
     return Container(
           padding: EdgeInsets.only(top: 5.r),
           width: 365.w,
@@ -153,20 +155,37 @@ class UpComingTaskCard extends ConsumerWidget {
                 color: AppColor.secondaryTextColor.withValues(alpha: 0.4),
               ),
               SizedBox(height: 24.h),
-              ProgressBar(style: style),
+              Consumer(
+                builder: (_, ref, _) {
+                  if (chapter == null) {
+                    return ProgressBar(
+                      style: style,
+                      progress: 0.0,  // If chapter is null, show 0% progress
+                    );
+                  }
+
+                  // Proceed with accessing chapterId if chapter is not null
+                  final progress = ref.watch(progressProvider(chapter!.chapterId).notifier).state;
+                  return ProgressBar(
+                    style: style,
+                    progress: progress,
+                  );
+                }
+              ),
               Consumer(
                 builder: (context, ref, _) {
-                  final progress =
-                      ref.watch(progressProvider.notifier).state;
-                  return Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      GradientProgressBar(
-                        progress: progress,
-                        borderRadius: 10.r,
-                        colors: borderGradColor,
-                      ),
-                    ],
+                  if(chapter == null) {
+                    return GradientProgressBar(
+                      progress:0.0 ,
+                      borderRadius: 10.r,
+                      colors: borderGradColor,
+                    );
+                  }
+                  final progress = ref.watch(progressProvider(chapter!.chapterId).notifier).state;
+                  return GradientProgressBar(
+                    progress: progress,
+                    borderRadius: 10.r,
+                    colors: borderGradColor,
                   );
                 },
               ),
@@ -177,33 +196,5 @@ class UpComingTaskCard extends ConsumerWidget {
         ),
       ),
         );
-
-    // return Container(
-    //   decoration: BoxDecoration(
-    //     gradient: LinearGradient(colors: [AppColor.blueSky, AppColor.purple]),
-    //     borderRadius: BorderRadius.circular(12.r),
-    //   ),
-    //   child: Padding(
-    //     padding: const EdgeInsets.all(24),
-    //     child: GestureDetector(
-    //       onTap: () {
-    //         context.push(RouteConst.todayStudyTasksScreen);
-    //       },
-    //       child: Container(
-    //         decoration: BoxDecoration(
-    //           color: AppColor.white,
-    //           borderRadius: BorderRadius.only(
-    //             topLeft: Radius.circular(12.r),
-    //             topRight: Radius.circular(12.r),
-    //           ),
-    //         ),
-    //         child: Padding(
-    //           padding: const EdgeInsets.all(16),
-    //           child: Text('asfdsaf'),
-    //         ),
-    //       ),
-    //     ),
-    //   ),
-    // );
   }
 }

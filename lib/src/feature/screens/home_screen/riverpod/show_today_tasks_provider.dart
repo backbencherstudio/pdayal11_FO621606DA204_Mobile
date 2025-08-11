@@ -10,6 +10,10 @@ class ChapterListNotifier extends StateNotifier<List<Chapter>> {
   void add(Chapter chapter) {
     state = [...state, chapter];
   }
+
+  Chapter getChapterById(String chapterId) {
+    return state.firstWhere((chapter) => chapter.chapterId == chapterId, orElse: () => throw Exception("Chapter not found"));
+  }
 }
 
 final chapterListProvider = StateNotifierProvider<ChapterListNotifier, List<Chapter>>(
@@ -17,3 +21,4 @@ final chapterListProvider = StateNotifierProvider<ChapterListNotifier, List<Chap
 );
 
 final selectedChapterId = StateProvider<String>((ref) => '');
+final selectedTaskId = StateProvider.family<String, String>((ref, chapterID) => '');

@@ -93,24 +93,7 @@ class ChapterCard extends StatelessWidget {
                 title: 'Mark as Complete',
                 radius: 8.r,
                 onTap: () {
-                  ref
-                      .read(completedTaskListProvider.notifier)
-                      .add(
-                    TaskModel(
-                      title: pendingTaskTitle!,
-                      date: date,
-                      difficulty: 'Easy',
-                    ),
-                  );
-                  ref
-                      .read(pendingTaskListProvider.notifier)
-                      .remove(
-                    TaskModel(
-                      title: pendingTaskTitle!,
-                      date: date,
-                      difficulty: 'Easy',
-                    ),
-                  );
+             // logic by riverpod
                 },
                 isIconOn: false,
                 width: 303.w,

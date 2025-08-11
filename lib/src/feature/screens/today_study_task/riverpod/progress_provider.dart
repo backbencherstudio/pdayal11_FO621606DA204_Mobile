@@ -1,14 +1,24 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pdayal1_mobile/src/feature/screens/today_study_task/riverpod/pending_task_provider.dart';
 
-import 'completed_task_list_provider.dart';
+// Track the count of completed tasks for a specific chapter
+final completedTaskCount = StateProvider.family<int, String>((ref, chapterId) => 0);
 
-final progressProvider = StateProvider<double>((ref) {
-  final pendingTasks = ref.watch(pendingTaskListProvider);
-  final completedTasks = ref.watch(completedTaskListProvider);
+// Track the count of pending tasks for a specific chapter
+final pendingTaskCount = StateProvider.family<int, String>((ref, chapterId) => 0);
 
-  final totalTasks = pendingTasks.length + completedTasks.length;
-  final completedTaskCount = completedTasks.length;
+// Calculate progress based on completed and pending tasks for a specific chapter
+final progressProvider = StateProvider.family<double, String>((ref, chapterId) {
+  final completedCount = ref.watch(completedTaskCount(chapterId));  // Get completed task count
+  final pendingCount = ref.watch(pendingTaskCount(chapterId));      // Get pending task count
 
-  return totalTasks == 0 ? 0.0 : completedTaskCount / totalTasks;
+  // Calculate progress as a fraction of completed tasks to total tasks (completed + pending)
+  if (completedCount == 0 && pendingCount == 0) {
+    return 0.0;  // If no tasks exist, progress is 0
+  } else if (completedCount == 0) {
+    return 0.0;  // If no completed tasks, progress is 0
+  } else if (pendingCount == 0) {
+    return 1.0;  // If no pending tasks, progress is 100%
+  } else {
+    return completedCount / (completedCount + pendingCount);  // Calculate progress fraction
+  }
 });

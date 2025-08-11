@@ -1,7 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pdayal1_mobile/src/feature/screens/home_screen/riverpod/show_today_tasks_provider.dart';
 import 'package:pdayal1_mobile/src/feature/screens/today_study_task/models/add_task_model.dart';
+import 'package:pdayal1_mobile/src/feature/screens/today_study_task/riverpod/progress_provider.dart';
 
 import '../../../../core/theme/theme_extension/color_pallete.dart';
 import '../../../common_widgets/common_widgets.dart';
@@ -87,21 +91,39 @@ class _AddNewTaskState extends State<AddNewTask> {
               ),
               SizedBox(height: 18.h),
               Consumer(
-                builder:
-                    (context, ref, _) => Center(
+                builder: (_, ref, _) {
+                      return Center(
                       child: CommonWidgets.primaryButton(
                         title: 'Add Test',
                         radius: 30.r,
                         onTap: () {
+                          final random = Random();
+                          int taskId = random.nextInt(1000);
+                          final chapID  = ref.watch(selectedChapterId);
+                          ref.read(selectedTaskId(chapID).notifier).state = taskId.toString();
+                          debugPrint("Chapter Id: $chapID");
+                          debugPrint("Task Id: $taskId");
+
                           if (formKey.currentState!.validate()) {
-                            final title = titleController.text.trim();
+                            final taskTitle = titleController.text.trim();
                             final date =
-                                widget.addTaskDateTEController.text.trim();
+                            widget.addTaskDateTEController.text.trim();
 
                             ref
                                 .read(pendingTaskListProvider.notifier)
-                                .add(TaskModel(title: title, date: date , difficulty: ''));
-                            ref.read(showPendingTasks.notifier).state = 1;
+                                .add(
+                              TaskModel(
+                                chapterId: chapID,
+                                taskId: taskId.toString(),
+                                title: taskTitle,
+                                date: date,
+                                difficulty: '',
+                              ),
+                            );
+                            ref.read(pendingTaskCount(chapID).notifier).state++;
+                            ref
+                                .read(showPendingTasks.notifier)
+                                .state = 1;
                             titleController.clear();
                             widget.addTaskDateTEController.clear();
                           }
@@ -109,7 +131,8 @@ class _AddNewTaskState extends State<AddNewTask> {
                         isIconOn: true,
                         width: 271.w,
                       ),
-                    ),
+                    );
+                      },
               ),
             ],
           ),

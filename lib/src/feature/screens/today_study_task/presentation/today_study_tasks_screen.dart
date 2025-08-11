@@ -123,16 +123,28 @@ class _TodayStudyTasksScreenState extends State<TodayStudyTasksScreen> {
                               ),
                             ),
                             SizedBox(height: 24.h),
-                            ProgressBar(style: style),
+                            Consumer(
+                              builder: (_, ref, _) {
+                                List<Chapter> chapterList = ref.watch(
+                                  chapterListProvider,
+                                );
+                                final chapterId = ref.watch(selectedChapterId);
+                                final chapter = ref.read(chapterListProvider.notifier).getChapterById(chapterId);
+                                return ProgressBar(style: style,
+                                  progress: ref.watch(progressProvider(chapter.chapterId).notifier).state,
+                                );
+                              }
+                            ), // Need to check
                             Consumer(
                               builder: (context, ref, _) {
-                                final progress =
-                                    ref.watch(progressProvider.notifier).state;
+                                final chapterId = ref.watch(selectedChapterId);
+                                final chapter = ref.read(chapterListProvider.notifier).getChapterById(chapterId);
+
                                 return Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     GradientProgressBar(
-                                      progress: progress,
+                                      progress: ref.watch(progressProvider(chapter.chapterId).notifier).state,
                                       borderRadius: 10,
                                     ),
                                   ],
@@ -145,7 +157,7 @@ class _TodayStudyTasksScreenState extends State<TodayStudyTasksScreen> {
                             AddNewTask(
                               style: style,
                               addTaskDateTEController: addTaskDateTEController,
-                            ),
+                            ), // aktu por
                           ],
                         ),
                       ),
@@ -155,8 +167,10 @@ class _TodayStudyTasksScreenState extends State<TodayStudyTasksScreen> {
                           final chapterList = ref.watch(
                             pendingTaskListProvider,
                           );
+                          final chapterId = ref.watch(selectedChapterId);
+                          final filteredTasks = chapterList.where((task) => task.chapterId == chapterId).toList();
                           return Text(
-                            'Pending Tasks (${chapterList.length})',
+                            'Pending Tasks (${filteredTasks.length})',
                             style: style.titleMedium?.copyWith(
                               color: AppColor.blackText,
                               fontWeight: FontWeight.w500,
@@ -169,11 +183,14 @@ class _TodayStudyTasksScreenState extends State<TodayStudyTasksScreen> {
                       // SizedBox(height: 20.h),
                       Consumer(
                         builder: (context, ref, _) {
-                          final completedList = ref.watch(
-                            completedTaskListProvider,
-                          );
+                          final chapterId = ref.watch(selectedChapterId);
+                          final completedList = ref.read(
+                            completedTaskListProvider.notifier
+                          ).getTasksByChapterId(chapterId);
+
+                          final count = ref.watch(completedTaskListProvider);
                           return Text(
-                            'Completed Tasks (${completedList.length})',
+                            'Completed Tasks (${count.length})',
                             style: style.titleMedium?.copyWith(
                               color: AppColor.blackText,
                               fontWeight: FontWeight.w500,
