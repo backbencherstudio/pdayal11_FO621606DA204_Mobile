@@ -17,7 +17,7 @@ class TaskModel {
         other.title == title &&
         other.date == date &&
         other.difficulty == difficulty &&
-        other.chapterID == chapterID; // Add difficulty and chapterID to equality check
+        other.chapterID == chapterID;
   }
 
   @override
