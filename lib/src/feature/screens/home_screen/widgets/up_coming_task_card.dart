@@ -15,11 +15,15 @@ import '../../today_study_task/widgets/topic_section.dart';
 import '../models/chapter_model.dart';
 
 class UpComingTaskCard extends ConsumerWidget {
-  const UpComingTaskCard({super.key, this.textGradient, this.chapter, this.index});
+  const UpComingTaskCard({
+    super.key,
+    this.textGradient,
+    this.chapter,
+    this.index,
+  });
   final Shader? textGradient;
   final Chapter? chapter;
   final int? index;
-
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -101,20 +105,19 @@ class UpComingTaskCard extends ConsumerWidget {
     final borderGradColor = ref.watch(randomBorderColor(index ?? 0));
 
     return Container(
-          padding: EdgeInsets.only(top: 5.r),
-          width: 365.w,
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  colors: borderGradColor,
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight
-              ),
-            borderRadius: BorderRadius.circular(12.r),
-          ),
+      padding: EdgeInsets.only(top: 5.r),
+      width: 365.w,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: borderGradColor,
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+        ),
+        borderRadius: BorderRadius.circular(12.r),
+      ),
       child: InkWell(
         onTap: () {
-          ref.read(selectedChapterId.notifier).state =
-              chapter!.chapterId;
+          ref.read(selectedChapterId.notifier).state = chapter!.chapterId;
           context.push(RouteConst.todayStudyTasksScreen);
         },
         child: Container(
@@ -122,9 +125,9 @@ class UpComingTaskCard extends ConsumerWidget {
           padding: EdgeInsets.all(16.r),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-                colors: backGradColor,
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight
+              colors: backGradColor,
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
             ),
             borderRadius: BorderRadius.circular(12.r),
           ),
@@ -160,41 +163,35 @@ class UpComingTaskCard extends ConsumerWidget {
                   if (chapter == null) {
                     return ProgressBar(
                       style: style,
-                      progress: 0.0,  // If chapter is null, show 0% progress
+                      progress: 0.0, // If chapter is null, show 0% progress
                     );
                   }
 
                   // Proceed with accessing chapterId if chapter is not null
-                  final progress = ref.watch(progressProvider(chapter!.chapterId).notifier).state;
-                  return ProgressBar(
-                    style: style,
-                    progress: progress,
-                  );
-                }
+                  final progress =
+                      ref
+                          .watch(progressProvider(chapter!.chapterId).notifier)
+                          .state;
+                  return ProgressBar(style: style, progress: progress);
+                },
               ),
               Consumer(
                 builder: (context, ref, _) {
-                  if(chapter == null) {
                     return GradientProgressBar(
-                      progress:0.0 ,
+                      progress: (chapter == null) ? 0.0 : ref
+                          .watch(progressProvider(chapter!.chapterId).notifier)
+                          .state,
                       borderRadius: 10.r,
                       colors: borderGradColor,
                     );
-                  }
-                  final progress = ref.watch(progressProvider(chapter!.chapterId).notifier).state;
-                  return GradientProgressBar(
-                    progress: progress,
-                    borderRadius: 10.r,
-                    colors: borderGradColor,
-                  );
                 },
               ),
               SizedBox(height: 8.h),
-              KeepGoing(style: style),
+              KeepGoing(style: style, chapter: chapter,),
             ],
           ),
         ),
       ),
-        );
+    );
   }
 }

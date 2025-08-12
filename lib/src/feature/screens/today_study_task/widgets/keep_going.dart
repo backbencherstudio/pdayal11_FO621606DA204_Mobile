@@ -11,23 +11,17 @@ import '../../home_screen/models/chapter_model.dart';
 import '../riverpod/progress_provider.dart';
 
 class KeepGoing extends StatelessWidget {
-  const KeepGoing({super.key, required this.style});
+  const KeepGoing({super.key, required this.style, this.chapter});
 
   final TextTheme style;
+  final Chapter? chapter;
 
   @override
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, _) {
-        List<Chapter> chapterList = ref.watch(
-          chapterListProvider,
-        );
-        final chapterId = ref.watch(selectedChapterId);
-        Chapter chapter = chapterList.firstWhere(
-              (chapters) => chapters.chapterId == chapterId,
-        );
-
-        final isCompleted = ref.watch(progressProvider(chapter.chapterId).notifier).state >= 1;
+        final selectedChapterIndex = ref.watch(selectedChapterId);
+        final isCompleted = ref.watch(progressProvider((chapter == null) ? (selectedChapterIndex) : (chapter!.chapterId)).notifier).state == 1;
         final leftText = isCompleted ? 'All Done' : 'Keep Going!';
         final rightText = isCompleted ? 'Excellent!' : 'Needs Attention';
         return Row(
