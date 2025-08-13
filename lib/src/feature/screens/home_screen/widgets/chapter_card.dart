@@ -2,29 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pdayal1_mobile/src/feature/screens/today_study_task/models/add_task_model.dart';
+import 'package:pdayal1_mobile/src/feature/screens/today_study_task/riverpod/completed_task_list_provider.dart';
 import 'package:pdayal1_mobile/src/feature/screens/today_study_task/riverpod/pending_task_provider.dart';
 import '../../../../core/constant/icons.dart';
 import '../../../../core/theme/theme_extension/color_pallete.dart';
 import '../../../common_widgets/common_widgets.dart';
-import '../../today_study_task/models/add_task_model.dart';
-import '../../today_study_task/riverpod/completed_task_list_provider.dart';
+import '../../today_study_task/riverpod/progress_provider.dart';
 
-class ChapterCard extends StatelessWidget {
+class ChapterCard extends ConsumerWidget {
   final TextTheme style;
+  final String chapterId;
   final String chapterTitle;
   final String date;
-  final String? pendingTaskTitle;
 
   const ChapterCard({
     super.key,
     required this.style,
+    required this.chapterId,
     required this.chapterTitle,
-    required this.date, this.pendingTaskTitle,
-
+    required this.date,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       margin: EdgeInsets.only(bottom: 12.h),
       width: 335.w,
@@ -86,25 +87,21 @@ class ChapterCard extends StatelessWidget {
           SizedBox(height: 12.h),
           Divider(color: AppColor.secondaryTextColor.withAlpha(80)),
           SizedBox(height: 16.h),
-          Consumer(
-            builder: (context,ref,_) {
-              final isCompleted = ref.watch(pendingTaskListProvider);
-              return CommonWidgets.primaryButton(
-                title: 'Mark as Complete',
-                radius: 8.r,
-                onTap: () {
-             // logic by riverpod
-                },
-                isIconOn: false,
-                width: 303.w,
-                textStyle: style.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.white,
-                ),
-              );
-            }
-          ),
-        ],
+      CommonWidgets.primaryButton(
+        title: 'Mark as Complete',
+        radius: 8.r,
+        onTap: () {
+
+        },
+        isIconOn: false,
+        width: 303.w,
+        textStyle: style.bodyMedium?.copyWith(
+          fontWeight: FontWeight.w500,
+          color: AppColor.white,
+        ),
+      ),
+
+      ],
       ),
     );
   }

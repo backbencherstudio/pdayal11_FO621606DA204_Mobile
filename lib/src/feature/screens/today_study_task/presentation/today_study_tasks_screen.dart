@@ -43,10 +43,11 @@ class _TodayStudyTasksScreenState extends State<TodayStudyTasksScreen> {
               Row(
                 children: [
                   GestureDetector(
-                      onTap: (){
-                        Navigator.pop(context);
-                      },
-                      child: Icon(Icons.arrow_back_ios_new_rounded, size: 20.sp)),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Icon(Icons.arrow_back_ios_new_rounded, size: 20.sp),
+                  ),
                   SizedBox(width: 60.w),
                   Text(
                     "Today's Study Tasks",
@@ -129,22 +130,41 @@ class _TodayStudyTasksScreenState extends State<TodayStudyTasksScreen> {
                                   chapterListProvider,
                                 );
                                 final chapterId = ref.watch(selectedChapterId);
-                                final chapter = ref.read(chapterListProvider.notifier).getChapterById(chapterId);
-                                return ProgressBar(style: style,
-                                  progress: ref.watch(progressProvider(chapter.chapterId).notifier).state,
+                                final chapter = ref
+                                    .read(chapterListProvider.notifier)
+                                    .getChapterById(chapterId);
+                                return ProgressBar(
+                                  style: style,
+                                  progress:
+                                      ref
+                                          .watch(
+                                            progressProvider(
+                                              chapter!.chapterId,
+                                            ).notifier,
+                                          )
+                                          .state,
                                 );
-                              }
+                              },
                             ), // Need to check
                             Consumer(
                               builder: (context, ref, _) {
                                 final chapterId = ref.watch(selectedChapterId);
-                                final chapter = ref.read(chapterListProvider.notifier).getChapterById(chapterId);
+                                final chapter = ref
+                                    .read(chapterListProvider.notifier)
+                                    .getChapterById(chapterId);
 
                                 return Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     GradientProgressBar(
-                                      progress: ref.watch(progressProvider(chapter.chapterId).notifier).state,
+                                      progress:
+                                          ref
+                                              .watch(
+                                                progressProvider(
+                                                  chapter!.chapterId,
+                                                ).notifier,
+                                              )
+                                              .state,
                                       borderRadius: 10,
                                     ),
                                   ],
@@ -157,7 +177,7 @@ class _TodayStudyTasksScreenState extends State<TodayStudyTasksScreen> {
                             AddNewTask(
                               style: style,
                               addTaskDateTEController: addTaskDateTEController,
-                            ), // aktu por
+                            ),
                           ],
                         ),
                       ),
@@ -168,7 +188,10 @@ class _TodayStudyTasksScreenState extends State<TodayStudyTasksScreen> {
                             pendingTaskListProvider,
                           );
                           final chapterId = ref.watch(selectedChapterId);
-                          final filteredTasks = chapterList.where((task) => task.chapterId == chapterId).toList();
+                          final filteredTasks =
+                              chapterList
+                                  .where((task) => task.chapterId == chapterId)
+                                  .toList();
                           return Text(
                             'Pending Tasks (${filteredTasks.length})',
                             style: style.titleMedium?.copyWith(
@@ -184,13 +207,18 @@ class _TodayStudyTasksScreenState extends State<TodayStudyTasksScreen> {
                       Consumer(
                         builder: (context, ref, _) {
                           final chapterId = ref.watch(selectedChapterId);
-                          final completedList = ref.read(
-                            completedTaskListProvider.notifier
-                          ).getTasksByChapterId(chapterId);
+
+                          final completedList = ref
+                              .read(completedTaskListProvider.notifier)
+                              .getTasksByChapterId(chapterId);
+                          final filteredTasks =
+                          completedList
+                              .where((task) => task.chapterId == chapterId)
+                              .toList();
 
                           final count = ref.watch(completedTaskListProvider);
                           return Text(
-                            'Completed Tasks (${count.length})',
+                            'Completed Tasks (${filteredTasks.length})',
                             style: style.titleMedium?.copyWith(
                               color: AppColor.blackText,
                               fontWeight: FontWeight.w500,

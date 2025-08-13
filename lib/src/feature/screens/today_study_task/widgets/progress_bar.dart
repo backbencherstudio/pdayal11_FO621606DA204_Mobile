@@ -39,7 +39,7 @@ class ProgressBar extends StatelessWidget {
           builder: (context, ref, _) {
             return Expanded(
               child: Text(
-                '$progress%',
+                '${(progress * 100).toStringAsFixed(0)}%',
                 textAlign: TextAlign.end,
                 style: style.bodySmall?.copyWith(
                   color: AppColor.profileTextColor,

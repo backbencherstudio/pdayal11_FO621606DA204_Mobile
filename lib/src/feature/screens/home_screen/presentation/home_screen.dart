@@ -95,6 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       return ChapterCard(
                                         style: style,
                                         chapterTitle: item.title,
+                                        chapterId: item.chapterId,
                                         date: item.date,
                                       );
                                     }),

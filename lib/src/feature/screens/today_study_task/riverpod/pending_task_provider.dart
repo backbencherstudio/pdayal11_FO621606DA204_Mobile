@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/add_task_model.dart';
+import '../models/hibi_model.dart';
 
 final showPendingTasks = StateProvider<int>((ref) => 0);
 
@@ -16,7 +18,7 @@ class PendingTaskListNotifier extends StateNotifier<List<TaskModel>> {
       // Add the new task if not already added for the same chapterId
       state = [...state, task];
     } else {
-      print("Duplicate task not added: ${task.title} for chapter ${task.chapterId}");
+      debugPrint("Duplicate task not added: ${task.title} for chapter ${task.chapterId}");
     }
   }
 
@@ -30,7 +32,7 @@ class PendingTaskListNotifier extends StateNotifier<List<TaskModel>> {
   }
 
   // Remove a task
-  void remove(TaskModel task) {
+  void removeById(TaskModel task) {
     state = state.where((t) => t != task).toList();
   }
 }

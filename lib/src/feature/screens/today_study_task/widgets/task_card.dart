@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pdayal1_mobile/src/feature/screens/today_study_task/widgets/task_level_card.dart';
 import '../../../../core/theme/theme_extension/color_pallete.dart';
-import '../models/add_task_model.dart';
-import '../riverpod/completed_task_list_provider.dart';
-import '../riverpod/pending_task_provider.dart';
 
 class TaskCard extends StatelessWidget {
   const TaskCard({
@@ -14,7 +10,8 @@ class TaskCard extends StatelessWidget {
     required this.pendingTaskTitle,
     required this.date,
     required this.difficulty,
-    required this.taskId
+    required this.taskId,
+    required this.chapterId,
   });
 
   final TextTheme style;
@@ -22,10 +19,10 @@ class TaskCard extends StatelessWidget {
   final String date;
   final String difficulty;
   final String taskId;
+  final String chapterId;
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       decoration: BoxDecoration(
         color: AppColor.softSkyBlue,
@@ -58,9 +55,11 @@ class TaskCard extends StatelessWidget {
 
             // Easy
             TaskLevelCard(
-                style: style,
+              style: style,
               title: "Easy",
               color: AppColor.deepGreen,
+              taskId: taskId,
+              chapterId: chapterId,
             ),
             SizedBox(height: 12.h),
 
@@ -69,6 +68,8 @@ class TaskCard extends StatelessWidget {
               style: style,
               title: "Medium",
               color: AppColor.deepYellow,
+              taskId: taskId,
+              chapterId: chapterId,
             ),
             SizedBox(height: 12.h),
 
@@ -77,18 +78,21 @@ class TaskCard extends StatelessWidget {
               style: style,
               title: "Hard",
               color: AppColor.deepRed,
+              taskId: taskId,
+              chapterId: chapterId,
             ),
             SizedBox(height: 12.h),
 
             // Cancel
-        TaskLevelCard(
-          style: style,
-          title: "Cancel",
-          color: Colors.transparent,
-          textColor: AppColor.chayan,
-          border: Border.all(color: AppColor.chayan
-          ),
-        ),
+            TaskLevelCard(
+              style: style,
+              title: "Cancel",
+              color: Colors.transparent,
+              textColor: AppColor.chayan,
+              border: Border.all(color: AppColor.chayan),
+              taskId: taskId,
+              chapterId: chapterId,
+            ),
           ],
         ),
       ),

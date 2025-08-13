@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/add_task_model.dart';
+import '../models/hibi_model.dart';
 
 final completedTaskListProvider =
 StateNotifierProvider<CompletedTaskListNotifier, List<TaskModel>>(
