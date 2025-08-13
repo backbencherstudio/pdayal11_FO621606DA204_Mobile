@@ -5,6 +5,7 @@ import 'package:pdayal1_mobile/src/core/constant/images.dart';
 import 'package:pdayal1_mobile/src/core/theme/theme_extension/color_pallete.dart';
 import 'package:pdayal1_mobile/src/feature/screens/home_screen/riverpod/show_today_tasks_provider.dart';
 import '../../../common_widgets/common_widgets.dart';
+import '../../today_study_task/models/add_task_model.dart';
 import '../../today_study_task/riverpod/pending_task_provider.dart';
 import '../widgets/chapter_card.dart';
 import '../widgets/profile_section.dart';
@@ -39,6 +40,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: EdgeInsets.symmetric(horizontal: 20.w),
                   child: Consumer(
                     builder: (context, ref, _) {
+                      ref.listen<List<TaskModel>>(pendingTaskListProvider, (
+                        previous,
+                        next,
+                      ) {
+                        if (next.isEmpty) {
+                          ref.read(showPendingTasks.notifier).state = 0;
+                        } else {
+                          ref.read(showPendingTasks.notifier).state = 1;
+                        }
+                      });
                       final selectedContainer = ref.watch(showPendingTasks);
                       final selectedUpcoming = ref.watch(showTodayTasks);
                       return Column(
@@ -149,7 +160,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                       final item = chapterList[index];
                                       return Padding(
                                         padding: EdgeInsets.only(bottom: 10.h),
-                                        child: UpComingTaskCard(chapter: item, index: index,),
+                                        child: UpComingTaskCard(
+                                          chapter: item,
+                                          index: index,
+                                        ),
                                       );
                                     }),
                                   ],
