@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pdayal1_mobile/src/core/theme/theme_extension/color_pallete.dart';
 import 'package:pdayal1_mobile/src/feature/screens/home_screen/riverpod/show_today_tasks_provider.dart';
 import 'package:pdayal1_mobile/src/feature/screens/today_study_task/riverpod/progress_provider.dart';
+import '../../../common_widgets/custom_tes_card_state/custom_test_card_state.dart';
 import '../../home_screen/models/chapter_model.dart';
 import '../riverpod/completed_task_list_provider.dart';
 import '../riverpod/pending_task_provider.dart';
@@ -58,7 +59,6 @@ class _TodayStudyTasksScreenState extends State<TodayStudyTasksScreen> {
                   ),
                 ],
               ),
-
               SizedBox(height: 20.h),
               Expanded(
                 child: SingleChildScrollView(
@@ -82,7 +82,7 @@ class _TodayStudyTasksScreenState extends State<TodayStudyTasksScreen> {
                                 );
                                 final chapterId = ref.watch(selectedChapterId);
                                 Chapter chapter = chapterList.firstWhere(
-                                  (chapters) => chapters.chapterId == chapterId,
+                                      (chapters) => chapters.chapterId == chapterId,
                                 );
                                 return DayLeftSection(
                                   style: style,
@@ -106,13 +106,15 @@ class _TodayStudyTasksScreenState extends State<TodayStudyTasksScreen> {
                                 );
                                 final chapterId = ref.watch(selectedChapterId);
                                 Chapter chapter = chapterList.firstWhere(
-                                  (chapters) => chapters.chapterId == chapterId,
+                                      (chapters) => chapters.chapterId == chapterId,
                                 );
                                 return TopicSection(
                                   style: style,
                                   textGradient: widget.textGradient,
                                   topicBtn: chapter.topics,
                                   topicsCount: chapter.topicsCount.toString(),
+                                  backGradColor: ref.watch(randomBackgroundColor(0)), // Gradient Color for Background
+                                  borderGradColor: ref.watch(randomBorderColor(0)), // Gradient Color for Border
                                 );
                               },
                             ),
@@ -136,16 +138,16 @@ class _TodayStudyTasksScreenState extends State<TodayStudyTasksScreen> {
                                 return ProgressBar(
                                   style: style,
                                   progress:
-                                      ref
-                                          .watch(
-                                            progressProvider(
-                                              chapter!.chapterId,
-                                            ).notifier,
-                                          )
-                                          .state,
+                                  ref
+                                      .watch(
+                                    progressProvider(
+                                      chapter!.chapterId,
+                                    ).notifier,
+                                  )
+                                      .state,
                                 );
                               },
-                            ), // Need to check
+                            ),
                             Consumer(
                               builder: (context, ref, _) {
                                 final chapterId = ref.watch(selectedChapterId);
@@ -158,13 +160,13 @@ class _TodayStudyTasksScreenState extends State<TodayStudyTasksScreen> {
                                   children: [
                                     GradientProgressBar(
                                       progress:
-                                          ref
-                                              .watch(
-                                                progressProvider(
-                                                  chapter!.chapterId,
-                                                ).notifier,
-                                              )
-                                              .state,
+                                      ref
+                                          .watch(
+                                        progressProvider(
+                                          chapter!.chapterId,
+                                        ).notifier,
+                                      )
+                                          .state,
                                       borderRadius: 10,
                                     ),
                                   ],
@@ -189,9 +191,9 @@ class _TodayStudyTasksScreenState extends State<TodayStudyTasksScreen> {
                           );
                           final chapterId = ref.watch(selectedChapterId);
                           final filteredTasks =
-                              chapterList
-                                  .where((task) => task.chapterId == chapterId)
-                                  .toList();
+                          chapterList
+                              .where((task) => task.chapterId == chapterId)
+                              .toList();
                           return Text(
                             'Pending Tasks (${filteredTasks.length})',
                             style: style.titleMedium?.copyWith(

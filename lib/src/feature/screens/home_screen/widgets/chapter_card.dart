@@ -96,27 +96,18 @@ class ChapterCard extends ConsumerWidget {
           final pendingCountNotifier = ref.read(pendingTaskCount(chapterId).notifier);
           final completedCountNotifier = ref.read(completedTaskCount(chapterId).notifier);
 
-          // Get the list of pending tasks for this chapter
-          final allPendingTasks = ref.read(pendingTaskListProvider)
-              .where((task) => task.chapterId == chapterId)
-              .toList();
+          // Get the specific task for this chapter and date
+          final taskToComplete = ref.read(pendingTaskListProvider).firstWhere(
+                (task) => task.chapterId == chapterId && task.date == date,
+            orElse: () => throw Exception('Task not found'),
+          );
 
-          if (allPendingTasks.isEmpty) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('No pending tasks to complete.')),
-            );
-            return;
-          }
-
-          // Pick the first pending task (you can customize the order if needed)
-          final taskToComplete = allPendingTasks.first;
-
-          // Remove the task from pending
+          // Remove the task from pending tasks
           pendingNotifier.removeById(taskToComplete);
           pendingCountNotifier.state =
           (pendingCountNotifier.state > 0) ? pendingCountNotifier.state - 1 : 0;
 
-          // Add the task to completed with difficulty "Easy"
+          // Add the task to completed tasks
           completedNotifier.add(TaskModel(
             chapterId: taskToComplete.chapterId,
             title: taskToComplete.title,

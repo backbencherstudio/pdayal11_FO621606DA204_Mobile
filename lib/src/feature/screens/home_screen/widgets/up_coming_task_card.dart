@@ -27,7 +27,6 @@ class UpComingTaskCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    //TextEditingController addTaskDateTEController = TextEditingController();
     final style = Theme.of(context).textTheme;
     final backGradColor = ref.watch(randomBackgroundColor(index ?? 0));
     final borderGradColor = ref.watch(randomBorderColor(index ?? 0));
@@ -74,11 +73,14 @@ class UpComingTaskCard extends ConsumerWidget {
                 color: AppColor.secondaryTextColor.withValues(alpha: 0.4),
               ),
               SizedBox(height: 24.h),
+              // Pass gradient colors to TopicSection
               TopicSection(
                 style: style,
                 textGradient: textGradient,
                 topicBtn: chapter!.topics,
                 topicsCount: chapter!.topicsCount.toString(),
+                backGradColor: backGradColor, // Pass the backGradColor
+                borderGradColor: borderGradColor, // Pass the borderGradColor
               ),
               SizedBox(height: 12.h),
               Divider(
@@ -88,34 +90,22 @@ class UpComingTaskCard extends ConsumerWidget {
               SizedBox(height: 24.h),
               Consumer(
                 builder: (_, ref, _) {
-                  if (chapter == null) {
-                    return ProgressBar(
-                      style: style,
-                      progress: 0.0, // If chapter is null, show 0% progress
-                    );
-                  }
-
-                  // Proceed with accessing chapterId if chapter is not null
                   final progress =
-                      ref
-                          .watch(progressProvider(chapter!.chapterId).notifier)
-                          .state;
+                      ref.watch(progressProvider(chapter!.chapterId).notifier).state;
                   return ProgressBar(style: style, progress: progress);
                 },
               ),
               Consumer(
                 builder: (context, ref, _) {
-                    return GradientProgressBar(
-                      progress: (chapter == null) ? 0.0 : ref
-                          .watch(progressProvider(chapter!.chapterId).notifier)
-                          .state,
-                      borderRadius: 10.r,
-                      colors: borderGradColor,
-                    );
+                  return GradientProgressBar(
+                    progress: ref.watch(progressProvider(chapter!.chapterId).notifier).state,
+                    borderRadius: 10.r,
+                    colors: borderGradColor,
+                  );
                 },
               ),
               SizedBox(height: 8.h),
-              KeepGoing(style: style, chapter: chapter,),
+              KeepGoing(style: style, chapter: chapter),
             ],
           ),
         ),
@@ -123,3 +113,4 @@ class UpComingTaskCard extends ConsumerWidget {
     );
   }
 }
+

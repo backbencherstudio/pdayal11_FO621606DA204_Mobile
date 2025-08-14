@@ -87,8 +87,8 @@ class DayLeftSection extends StatelessWidget {
                   // ),
                   child: Container(
                     alignment: Alignment.center,
-                    width: 90.w,
-                    padding: EdgeInsets.all(12.r),
+                    width: 100.w,
+                    padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 4.h),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16.r),
                       gradient: LinearGradient(

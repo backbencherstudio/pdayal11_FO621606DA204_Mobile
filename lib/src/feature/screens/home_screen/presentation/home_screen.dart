@@ -85,8 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 color: AppColor.textColor,
                                 fontWeight: FontWeight.w500,
                               ),
-                              subtitle:
-                                  'No study tasks for today. Great job\nstaying on track!',
+                              subtitle: 'No study tasks for today. Great job\nstaying on track!',
                               subtitleStyle: style.bodyMedium!.copyWith(
                                 color: AppColor.profileTextColor,
                               ),
@@ -94,26 +93,48 @@ class _HomeScreenState extends State<HomeScreen> {
                           else
                             Consumer(
                               builder: (context, ref, _) {
-                                final chapterList = ref.watch(
-                                  pendingTaskListProvider,
-                                );
+                                final chapterList = ref.watch(pendingTaskListProvider);
+
+                                // Filter tasks that are for today
+                                final todayTasks = chapterList.where((task) => task.date == 'Today').toList();
+
                                 return Column(
                                   children: [
-                                    ...List.generate(chapterList.length, (
-                                      index,
-                                    ) {
-                                      final item = chapterList[index];
-                                      return ChapterCard(
-                                        style: style,
-                                        chapterTitle: item.title,
-                                        chapterId: item.chapterId,
-                                        date: item.date,
-                                      );
-                                    }),
+                                    // If no tasks for today, show "All caught up!"
+                                    if (todayTasks.isEmpty)
+                                      TaskContainer(
+                                        picture: Image.asset(
+                                          AppImages.party,
+                                          width: 48.w,
+                                          height: 48.h,
+                                        ),
+                                        title: 'All caught up!',
+                                        titleStyle: style.bodyLarge!.copyWith(
+                                          color: AppColor.textColor,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                        subtitle: 'No study tasks for today. Great job\nstaying on track!',
+                                        subtitleStyle: style.bodyMedium!.copyWith(
+                                          color: AppColor.profileTextColor,
+                                        ),
+                                      )
+                                    else
+                                    // Display the tasks for today
+                                      ...List.generate(todayTasks.length, (index) {
+                                        final item = todayTasks[index];
+                                        return ChapterCard(
+                                          style: style,
+                                          chapterTitle: item.title,
+                                          chapterId: item.chapterId,
+                                          date: item.date,
+                                        );
+                                      }),
                                   ],
                                 );
                               },
                             ),
+
+
 
                           SizedBox(height: 22.h),
                           Align(
