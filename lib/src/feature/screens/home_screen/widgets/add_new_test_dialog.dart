@@ -60,6 +60,7 @@ void onTapAddNewTest(BuildContext context) {
                     SizedBox(height: 32.h),
                     Form(
                       key: formKey,
+                      autovalidateMode: AutovalidateMode.onUnfocus,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -76,12 +77,12 @@ void onTapAddNewTest(BuildContext context) {
                                 color: AppColor.secondaryTextColor,
                               ),
                             ),
-                            // validator: (value) {
-                            //   if (value!.isEmpty) {
-                            //     return 'Please enter your Test Name';
-                            //   }
-                            //   return null;
-                            // }
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter your Test Name';
+                              }
+                              return null;
+                            }
                           ),
                           SizedBox(height: 18.h),
                           TitleText(style: style, title: 'Test Date'),
@@ -102,12 +103,12 @@ void onTapAddNewTest(BuildContext context) {
                                 color: AppColor.secondaryTextColor,
                               ),
                             ),
-                            // validator: (value) {
-                            //   if (value!.isEmpty) {
-                            //     return 'Please enter your Test Name';
-                            //   }
-                            //   return null;
-                            // }
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter your Test Name';
+                              }
+                              return null;
+                            }
                           ),
                           SizedBox(height: 24.h),
                           Row(

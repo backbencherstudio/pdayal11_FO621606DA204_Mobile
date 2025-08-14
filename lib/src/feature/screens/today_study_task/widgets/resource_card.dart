@@ -6,10 +6,11 @@ import '../../../../core/constant/icons.dart';
 import '../../../../core/theme/theme_extension/color_pallete.dart';
 
 class ResourceCard extends StatelessWidget {
-  const ResourceCard({super.key, required this.style, required this.title});
+  const ResourceCard({super.key, required this.style, required this.title, required this.onCancel});
 
   final TextTheme style;
   final String title;
+  final VoidCallback onCancel;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +44,10 @@ class ResourceCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                SvgPicture.asset(AppIcons.cancel, width: 16.w, height: 16.w),
+                GestureDetector(
+                  onTap: onCancel,  // Trigger the onCancel function
+                  child: SvgPicture.asset(AppIcons.cancel, width: 16.w, height: 16.w),
+                ),
               ],
             ),
           ],
@@ -52,3 +56,4 @@ class ResourceCard extends StatelessWidget {
     );
   }
 }
+

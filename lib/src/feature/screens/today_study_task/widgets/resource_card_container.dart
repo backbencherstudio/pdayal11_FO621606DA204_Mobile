@@ -15,13 +15,22 @@ class ResourceCardContainer extends StatelessWidget {
     return Consumer(
       builder: (context, ref, _) {
         final chapterList = ref.watch(resourceListProvider);
+
         return Column(
           children: [
             ...List.generate(chapterList.length, (index) {
               final item = chapterList[index];
+
               return Padding(
                 padding: EdgeInsets.only(bottom: 8.h),
-                child: ResourceCard(style: style, title: item.title),
+                child: ResourceCard(
+                  style: style,
+                  title: item.title,
+                  onCancel: () {
+                    // Call remove when cancel is tapped
+                    ref.read(resourceListProvider.notifier).remove(item);
+                  },
+                ),
               );
             }),
           ],
@@ -30,3 +39,4 @@ class ResourceCardContainer extends StatelessWidget {
     );
   }
 }
+

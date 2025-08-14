@@ -11,7 +11,13 @@ class ResourceListNotifier extends StateNotifier<List<Resource>> {
   void add(Resource chapter) {
     state = [...state, chapter];
   }
+
+  void remove(Resource chapter) {
+    state = state.where((item) => item.title != chapter.title).toList();
+  }
+
 }
+
 
 final resourceListProvider = StateNotifierProvider<ResourceListNotifier, List<Resource>>(
       (ref) => ResourceListNotifier(),

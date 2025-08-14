@@ -51,6 +51,12 @@ class _DatePickerState extends State<DatePicker> {
               maxWidth: 36.w,
             ),
           ),
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter date';
+              }
+              return null;
+            },
 
           onTap: () async {
             final DateTime? pickedDate = await showDatePicker(
