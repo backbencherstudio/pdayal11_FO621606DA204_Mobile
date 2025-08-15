@@ -84,11 +84,15 @@ class _TodayStudyTasksScreenState extends State<TodayStudyTasksScreen> {
                                 Chapter chapter = chapterList.firstWhere(
                                       (chapters) => chapters.chapterId == chapterId,
                                 );
+                                final progress =
+                                    ref.watch(progressProvider(chapter!.chapterId).notifier).state;
+                                final dayLeftText = (progress == 1.0) ? "Completed" : chapter!.daysLeft.toString();
+
                                 return DayLeftSection(
                                   style: style,
                                   title: chapter.title,
                                   date: chapter.date,
-                                  dayLeft: chapter.daysLeft.toString(),
+                                  dayLeft: dayLeftText,
                                 );
                               },
                             ),

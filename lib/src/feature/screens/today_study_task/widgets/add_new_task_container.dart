@@ -94,24 +94,38 @@ class _AddNewTaskState extends State<AddNewTask> {
                 builder: (_, ref, _) {
                       return Center(
                       child: CommonWidgets.primaryButton(
-                        title: 'Add Test',
+                        title: 'Add Task',
                         radius: 30.r,
                         onTap: () {
-                          final random = Random();
-                          int taskId = random.nextInt(1000);
-                          final chapID  = ref.watch(selectedChapterId);
-                          ref.read(selectedTaskId(chapID).notifier).state = taskId.toString();
-                          debugPrint("Chapter Id: $chapID");
-                          debugPrint("Task Id: $taskId");
-
                           if (formKey.currentState!.validate()) {
                             final taskTitle = titleController.text.trim();
-                            final date =
-                            widget.addTaskDateTEController.text.trim();
+                            final date = widget.addTaskDateTEController.text.trim();
 
-                            ref
-                                .read(pendingTaskListProvider.notifier)
-                                .add(
+                            final chapID = ref.watch(selectedChapterId);
+                            final pendingTasks = ref.watch(pendingTaskListProvider);
+
+                            // Check for duplicate
+                            final isDuplicate = pendingTasks.any((task) =>
+                            task.chapterId == chapID &&
+                                task.title == taskTitle &&
+                                task.date == date);
+
+                            if (isDuplicate) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Task with same title and date already exists'),
+                                ),
+                              );
+                              return; // Do not proceed further
+                            }
+
+                            final random = Random();
+                            int taskId = random.nextInt(1000);
+                            ref.read(selectedTaskId(chapID).notifier).state = taskId.toString();
+                            debugPrint("Chapter Id: $chapID");
+                            debugPrint("Task Id: $taskId");
+
+                            ref.read(pendingTaskListProvider.notifier).add(
                               TaskModel(
                                 chapterId: chapID,
                                 taskId: taskId.toString(),
@@ -120,14 +134,15 @@ class _AddNewTaskState extends State<AddNewTask> {
                                 difficulty: '',
                               ),
                             );
+
                             ref.read(pendingTaskCount(chapID).notifier).state++;
-                            ref
-                                .read(showPendingTasks.notifier)
-                                .state = 1;
+                            ref.read(showPendingTasks.notifier).state = 1;
+
                             titleController.clear();
                             widget.addTaskDateTEController.clear();
                           }
                         },
+
                         isIconOn: true,
                         width: 271.w,
                       ),

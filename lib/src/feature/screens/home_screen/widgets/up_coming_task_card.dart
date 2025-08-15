@@ -61,12 +61,20 @@ class UpComingTaskCard extends ConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              DayLeftSection(
-                style: style,
-                title: chapter!.title,
-                date: chapter!.date,
-                dayLeft: chapter!.daysLeft.toString(),
-                index: index,
+
+              Consumer(
+                builder: (context,ref,_) {
+                  final progress =
+                      ref.watch(progressProvider(chapter!.chapterId).notifier).state;
+                  final dayLeftText = (progress == 1.0) ? "Completed" : chapter!.daysLeft.toString();
+                  return DayLeftSection(
+                    style: style,
+                    title: chapter!.title,
+                    date: chapter!.date,
+                    dayLeft: dayLeftText,
+                    index: index,
+                  );
+                }
               ),
               Divider(
                 height: 1.h,

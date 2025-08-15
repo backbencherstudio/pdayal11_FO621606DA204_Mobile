@@ -21,7 +21,7 @@ class DayLeftSection extends StatelessWidget {
   final TextTheme style;
   final String title;
   final String date;
-  final String dayLeft;
+  final String dayLeft; // This can be number of days or "Completed"
   final int? index;
   final List<Widget>? completedTask;
   final List<Widget>? pendingTask;
@@ -55,8 +55,7 @@ class DayLeftSection extends StatelessWidget {
                   ),
                   SizedBox(width: 6.w),
                   Consumer(
-                    builder: (_, ref, _) {
-                      // final date = ref.watch(selectedDateProvider);
+                    builder: (_, ref, __) {
                       return Text(
                         date,
                         style: style.bodySmall?.copyWith(
@@ -69,26 +68,18 @@ class DayLeftSection extends StatelessWidget {
               ),
             ),
             Consumer(
-              builder: (_, ref, _) {
+              builder: (_, ref, __) {
                 final borderGradColor = ref.watch(
                   randomBorderColor(index ?? 0),
                 );
                 return Flexible(
-                  // child: CommonWidgets.primaryButton(
-                  //   title: '$dayLeft days left',
-                  //   radius: 16.r,
-                  //   onTap: () {},
-                  //   isIconOn: false,
-                  //   width: 94.w,
-                  //   textStyle: style.bodySmall?.copyWith(
-                  //     color: AppColor.white,
-                  //     fontWeight: FontWeight.w400,
-                  //   ),
-                  // ),
                   child: Container(
                     alignment: Alignment.center,
                     width: 100.w,
-                    padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 4.h),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.w,
+                      vertical: 4.h,
+                    ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16.r),
                       gradient: LinearGradient(
@@ -98,7 +89,9 @@ class DayLeftSection extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      '$dayLeft days left',
+                      dayLeft == "Completed"
+                          ? "Completed"
+                          : '$dayLeft days left',
                       style: style.bodySmall!.copyWith(
                         color: AppColor.white,
                         fontWeight: FontWeight.w400,

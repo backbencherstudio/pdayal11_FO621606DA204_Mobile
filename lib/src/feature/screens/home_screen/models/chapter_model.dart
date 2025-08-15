@@ -38,6 +38,11 @@ class Chapter {
   }
 
   static int _calculateDaysLeft(String date) {
+    final today = DateUtils.dateOnly(DateTime.now());
+    if (date == "Today") return 0;
+    if (date == "Tomorrow") return 1;
+    if (date == "Yesterday") return 0; // Or -1
+
     final DateFormat format = DateFormat("MM/dd/yyyy");
     DateTime chapterDate;
 
@@ -47,10 +52,12 @@ class Chapter {
       debugPrint("Invalid date format: $date");
       return 0;
     }
-
-    final today = DateUtils.dateOnly(DateTime.now());
     final target = DateUtils.dateOnly(chapterDate);
 
-    return target.difference(today).inDays;
+    int difference = target.difference(today).inDays;
+
+    // If the date is tomorrow (difference == 1), then return 1, etc.
+    return difference >= 0 ? difference : 0;
   }
+
 }

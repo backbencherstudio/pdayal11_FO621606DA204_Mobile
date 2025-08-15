@@ -20,14 +20,6 @@ class _AddTaskDatePickerState extends State<AddTaskDatePicker> {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, _) {
-        final selectedDate = ref.watch(addTaskDateProvider);
-
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (mounted && widget.dateController.text != selectedDate) {
-            widget.dateController.text = selectedDate;
-          }
-        });
-
         return TextFormField(
           controller: widget.dateController,
           keyboardType: TextInputType.datetime,
@@ -96,18 +88,20 @@ class _AddTaskDatePickerState extends State<AddTaskDatePicker> {
               if (normalizedPickedDate.isAtSameMomentAs(normalizedToday)) {
                 formattedDate = "Today";
               } else if (normalizedPickedDate.isAtSameMomentAs(
-                normalizedYesterday,
-              )) {
+                  normalizedYesterday)) {
                 formattedDate = "Yesterday";
               } else if (normalizedPickedDate.isAtSameMomentAs(
-                normalizedTomorrow,
-              )) {
+                  normalizedTomorrow)) {
                 formattedDate = "Tomorrow";
               } else {
                 formattedDate =
-                    "${pickedDate.month}/${pickedDate.day}/${pickedDate.year}";
+                "${pickedDate.month}/${pickedDate.day}/${pickedDate.year}";
               }
 
+              /// ✅ ALWAYS SET TEXT ON CONTROLLER HERE
+              widget.dateController.text = formattedDate;
+
+              /// ✅ Update Riverpod state too
               ref.read(addTaskDateProvider.notifier).state = formattedDate;
 
               debugPrint("\n\n onTap -> $formattedDate\n\n");
@@ -116,11 +110,5 @@ class _AddTaskDatePickerState extends State<AddTaskDatePicker> {
         );
       },
     );
-  }
-
-  @override
-  void dispose() {
-    widget.dateController.dispose();
-    super.dispose();
   }
 }
